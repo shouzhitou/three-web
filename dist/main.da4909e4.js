@@ -132,39 +132,41 @@ exports.WebGLRenderer = exports.WebGLRenderTarget = exports.WebGLMultipleRenderT
 exports.WebGLUtils = WebGLUtils;
 exports.ZeroStencilOp = exports.ZeroSlopeEnding = exports.ZeroFactor = exports.ZeroCurvatureEnding = exports.WrapAroundEnding = exports.WireframeGeometry = exports.WebGPUCoordinateSystem = void 0;
 exports.createCanvasElement = createCanvasElement;
-function _wrapNativeSuper(Class) { var _cache = typeof Map === "function" ? new Map() : undefined; _wrapNativeSuper = function _wrapNativeSuper(Class) { if (Class === null || !_isNativeFunction(Class)) return Class; if (typeof Class !== "function") { throw new TypeError("Super expression must either be null or a function"); } if (typeof _cache !== "undefined") { if (_cache.has(Class)) return _cache.get(Class); _cache.set(Class, Wrapper); } function Wrapper() { return _construct(Class, arguments, _getPrototypeOf(this).constructor); } Wrapper.prototype = Object.create(Class.prototype, { constructor: { value: Wrapper, enumerable: false, writable: true, configurable: true } }); return _setPrototypeOf(Wrapper, Class); }; return _wrapNativeSuper(Class); }
+function _wrapNativeSuper(t) { var r = "function" == typeof Map ? new Map() : void 0; return _wrapNativeSuper = function _wrapNativeSuper(t) { if (null === t || !_isNativeFunction(t)) return t; if ("function" != typeof t) throw new TypeError("Super expression must either be null or a function"); if (void 0 !== r) { if (r.has(t)) return r.get(t); r.set(t, Wrapper); } function Wrapper() { return _construct(t, arguments, _getPrototypeOf(this).constructor); } return Wrapper.prototype = Object.create(t.prototype, { constructor: { value: Wrapper, enumerable: !1, writable: !0, configurable: !0 } }), _setPrototypeOf(Wrapper, t); }, _wrapNativeSuper(t); }
 function _construct(t, e, r) { if (_isNativeReflectConstruct()) return Reflect.construct.apply(null, arguments); var o = [null]; o.push.apply(o, e); var p = new (t.bind.apply(t, o))(); return r && _setPrototypeOf(p, r.prototype), p; }
-function _isNativeFunction(fn) { try { return Function.toString.call(fn).indexOf("[native code]") !== -1; } catch (e) { return typeof fn === "function"; } }
+function _isNativeFunction(t) { try { return -1 !== Function.toString.call(t).indexOf("[native code]"); } catch (n) { return "function" == typeof t; } }
 function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
 function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { _defineProperty(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
-function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
-function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
-function _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e2) { throw _e2; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e3) { didErr = true; err = _e3; }, f: function f() { try { if (!normalCompletion && it.return != null) it.return(); } finally { if (didErr) throw err; } } }; }
-function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+function asyncGeneratorStep(n, t, e, r, o, a, c) { try { var i = n[a](c), u = i.value; } catch (n) { return void e(n); } i.done ? t(u) : Promise.resolve(u).then(r, o); }
+function _asyncToGenerator(n) { return function () { var t = this, e = arguments; return new Promise(function (r, o) { var a = n.apply(t, e); function _next(n) { asyncGeneratorStep(a, r, o, _next, _throw, "next", n); } function _throw(n) { asyncGeneratorStep(a, r, o, _next, _throw, "throw", n); } _next(void 0); }); }; }
+function _createForOfIteratorHelper(r, e) { var t = "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (!t) { if (Array.isArray(r) || (t = _unsupportedIterableToArray(r)) || e && r && "number" == typeof r.length) { t && (r = t); var _n = 0, F = function F() {}; return { s: F, n: function n() { return _n >= r.length ? { done: !0 } : { done: !1, value: r[_n++] }; }, e: function e(r) { throw r; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var o, a = !0, u = !1; return { s: function s() { t = t.call(r); }, n: function n() { var r = t.next(); return a = r.done, r; }, e: function e(r) { u = !0, o = r; }, f: function f() { try { a || null == t.return || t.return(); } finally { if (u) throw o; } } }; }
+function _slicedToArray(r, e) { return _arrayWithHoles(r) || _iterableToArrayLimit(r, e) || _unsupportedIterableToArray(r, e) || _nonIterableRest(); }
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
 function _iterableToArrayLimit(r, l) { var t = null == r ? null : "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (null != t) { var e, n, i, u, a = [], f = !0, o = !1; try { if (i = (t = t.call(r)).next, 0 === l) { if (Object(t) !== t) return; f = !1; } else for (; !(f = (e = i.call(t)).done) && (a.push(e.value), a.length !== l); f = !0); } catch (r) { o = !0, n = r; } finally { try { if (!f && null != t.return && (u = t.return(), Object(u) !== u)) return; } finally { if (o) throw n; } } return a; } }
-function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
-function _get() { if (typeof Reflect !== "undefined" && Reflect.get) { _get = Reflect.get.bind(); } else { _get = function _get(target, property, receiver) { var base = _superPropBase(target, property); if (!base) return; var desc = Object.getOwnPropertyDescriptor(base, property); if (desc.get) { return desc.get.call(arguments.length < 3 ? target : receiver); } return desc.value; }; } return _get.apply(this, arguments); }
-function _superPropBase(object, property) { while (!Object.prototype.hasOwnProperty.call(object, property)) { object = _getPrototypeOf(object); if (object === null) break; } return object; }
-function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
+function _arrayWithHoles(r) { if (Array.isArray(r)) return r; }
+function _superPropGet(t, o, e, r) { var p = _get(_getPrototypeOf(1 & r ? t.prototype : t), o, e); return 2 & r && "function" == typeof p ? function (t) { return p.apply(e, t); } : p; }
+function _get() { return _get = "undefined" != typeof Reflect && Reflect.get ? Reflect.get.bind() : function (e, t, r) { var p = _superPropBase(e, t); if (p) { var n = Object.getOwnPropertyDescriptor(p, t); return n.get ? n.get.call(arguments.length < 3 ? e : r) : n.value; } }, _get.apply(null, arguments); }
+function _superPropBase(t, o) { for (; !{}.hasOwnProperty.call(t, o) && null !== (t = _getPrototypeOf(t));); return t; }
+function _toConsumableArray(r) { return _arrayWithoutHoles(r) || _iterableToArray(r) || _unsupportedIterableToArray(r) || _nonIterableSpread(); }
 function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
-function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
-function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter); }
-function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
-function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i]; return arr2; }
+function _unsupportedIterableToArray(r, a) { if (r) { if ("string" == typeof r) return _arrayLikeToArray(r, a); var t = {}.toString.call(r).slice(8, -1); return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? _arrayLikeToArray(r, a) : void 0; } }
+function _iterableToArray(r) { if ("undefined" != typeof Symbol && null != r[Symbol.iterator] || null != r["@@iterator"]) return Array.from(r); }
+function _arrayWithoutHoles(r) { if (Array.isArray(r)) return _arrayLikeToArray(r); }
+function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length); for (var e = 0, n = Array(a); e < a; e++) n[e] = r[e]; return n; }
 function _callSuper(t, o, e) { return o = _getPrototypeOf(o), _possibleConstructorReturn(t, _isNativeReflectConstruct() ? Reflect.construct(o, e || [], _getPrototypeOf(t).constructor) : o.apply(t, e)); }
-function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } else if (call !== void 0) { throw new TypeError("Derived constructors may only return object or undefined"); } return _assertThisInitialized(self); }
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+function _possibleConstructorReturn(t, e) { if (e && ("object" == _typeof(e) || "function" == typeof e)) return e; if (void 0 !== e) throw new TypeError("Derived constructors may only return object or undefined"); return _assertThisInitialized(t); }
+function _assertThisInitialized(e) { if (void 0 === e) throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); return e; }
 function _isNativeReflectConstruct() { try { var t = !Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); } catch (t) {} return (_isNativeReflectConstruct = function _isNativeReflectConstruct() { return !!t; })(); }
-function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf.bind() : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); Object.defineProperty(subClass, "prototype", { writable: false }); if (superClass) _setPrototypeOf(subClass, superClass); }
-function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
-function _defineProperty(obj, key, value) { key = _toPropertyKey(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+function _getPrototypeOf(t) { return _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf.bind() : function (t) { return t.__proto__ || Object.getPrototypeOf(t); }, _getPrototypeOf(t); }
+function _inherits(t, e) { if ("function" != typeof e && null !== e) throw new TypeError("Super expression must either be null or a function"); t.prototype = Object.create(e && e.prototype, { constructor: { value: t, writable: !0, configurable: !0 } }), Object.defineProperty(t, "prototype", { writable: !1 }), e && _setPrototypeOf(t, e); }
+function _setPrototypeOf(t, e) { return _setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function (t, e) { return t.__proto__ = e, t; }, _setPrototypeOf(t, e); }
+function _defineProperty(e, r, t) { return (r = _toPropertyKey(r)) in e ? Object.defineProperty(e, r, { value: t, enumerable: !0, configurable: !0, writable: !0 }) : e[r] = t, e; }
 function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ _regeneratorRuntime = function _regeneratorRuntime() { return e; }; var t, e = {}, r = Object.prototype, n = r.hasOwnProperty, o = Object.defineProperty || function (t, e, r) { t[e] = r.value; }, i = "function" == typeof Symbol ? Symbol : {}, a = i.iterator || "@@iterator", c = i.asyncIterator || "@@asyncIterator", u = i.toStringTag || "@@toStringTag"; function define(t, e, r) { return Object.defineProperty(t, e, { value: r, enumerable: !0, configurable: !0, writable: !0 }), t[e]; } try { define({}, ""); } catch (t) { define = function define(t, e, r) { return t[e] = r; }; } function wrap(t, e, r, n) { var i = e && e.prototype instanceof Generator ? e : Generator, a = Object.create(i.prototype), c = new Context(n || []); return o(a, "_invoke", { value: makeInvokeMethod(t, r, c) }), a; } function tryCatch(t, e, r) { try { return { type: "normal", arg: t.call(e, r) }; } catch (t) { return { type: "throw", arg: t }; } } e.wrap = wrap; var h = "suspendedStart", l = "suspendedYield", f = "executing", s = "completed", y = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var p = {}; define(p, a, function () { return this; }); var d = Object.getPrototypeOf, v = d && d(d(values([]))); v && v !== r && n.call(v, a) && (p = v); var g = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(p); function defineIteratorMethods(t) { ["next", "throw", "return"].forEach(function (e) { define(t, e, function (t) { return this._invoke(e, t); }); }); } function AsyncIterator(t, e) { function invoke(r, o, i, a) { var c = tryCatch(t[r], t, o); if ("throw" !== c.type) { var u = c.arg, h = u.value; return h && "object" == _typeof(h) && n.call(h, "__await") ? e.resolve(h.__await).then(function (t) { invoke("next", t, i, a); }, function (t) { invoke("throw", t, i, a); }) : e.resolve(h).then(function (t) { u.value = t, i(u); }, function (t) { return invoke("throw", t, i, a); }); } a(c.arg); } var r; o(this, "_invoke", { value: function value(t, n) { function callInvokeWithMethodAndArg() { return new e(function (e, r) { invoke(t, n, e, r); }); } return r = r ? r.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); } }); } function makeInvokeMethod(e, r, n) { var o = h; return function (i, a) { if (o === f) throw Error("Generator is already running"); if (o === s) { if ("throw" === i) throw a; return { value: t, done: !0 }; } for (n.method = i, n.arg = a;;) { var c = n.delegate; if (c) { var u = maybeInvokeDelegate(c, n); if (u) { if (u === y) continue; return u; } } if ("next" === n.method) n.sent = n._sent = n.arg;else if ("throw" === n.method) { if (o === h) throw o = s, n.arg; n.dispatchException(n.arg); } else "return" === n.method && n.abrupt("return", n.arg); o = f; var p = tryCatch(e, r, n); if ("normal" === p.type) { if (o = n.done ? s : l, p.arg === y) continue; return { value: p.arg, done: n.done }; } "throw" === p.type && (o = s, n.method = "throw", n.arg = p.arg); } }; } function maybeInvokeDelegate(e, r) { var n = r.method, o = e.iterator[n]; if (o === t) return r.delegate = null, "throw" === n && e.iterator.return && (r.method = "return", r.arg = t, maybeInvokeDelegate(e, r), "throw" === r.method) || "return" !== n && (r.method = "throw", r.arg = new TypeError("The iterator does not provide a '" + n + "' method")), y; var i = tryCatch(o, e.iterator, r.arg); if ("throw" === i.type) return r.method = "throw", r.arg = i.arg, r.delegate = null, y; var a = i.arg; return a ? a.done ? (r[e.resultName] = a.value, r.next = e.nextLoc, "return" !== r.method && (r.method = "next", r.arg = t), r.delegate = null, y) : a : (r.method = "throw", r.arg = new TypeError("iterator result is not an object"), r.delegate = null, y); } function pushTryEntry(t) { var e = { tryLoc: t[0] }; 1 in t && (e.catchLoc = t[1]), 2 in t && (e.finallyLoc = t[2], e.afterLoc = t[3]), this.tryEntries.push(e); } function resetTryEntry(t) { var e = t.completion || {}; e.type = "normal", delete e.arg, t.completion = e; } function Context(t) { this.tryEntries = [{ tryLoc: "root" }], t.forEach(pushTryEntry, this), this.reset(!0); } function values(e) { if (e || "" === e) { var r = e[a]; if (r) return r.call(e); if ("function" == typeof e.next) return e; if (!isNaN(e.length)) { var o = -1, i = function next() { for (; ++o < e.length;) if (n.call(e, o)) return next.value = e[o], next.done = !1, next; return next.value = t, next.done = !0, next; }; return i.next = i; } } throw new TypeError(_typeof(e) + " is not iterable"); } return GeneratorFunction.prototype = GeneratorFunctionPrototype, o(g, "constructor", { value: GeneratorFunctionPrototype, configurable: !0 }), o(GeneratorFunctionPrototype, "constructor", { value: GeneratorFunction, configurable: !0 }), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, u, "GeneratorFunction"), e.isGeneratorFunction = function (t) { var e = "function" == typeof t && t.constructor; return !!e && (e === GeneratorFunction || "GeneratorFunction" === (e.displayName || e.name)); }, e.mark = function (t) { return Object.setPrototypeOf ? Object.setPrototypeOf(t, GeneratorFunctionPrototype) : (t.__proto__ = GeneratorFunctionPrototype, define(t, u, "GeneratorFunction")), t.prototype = Object.create(g), t; }, e.awrap = function (t) { return { __await: t }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, c, function () { return this; }), e.AsyncIterator = AsyncIterator, e.async = function (t, r, n, o, i) { void 0 === i && (i = Promise); var a = new AsyncIterator(wrap(t, r, n, o), i); return e.isGeneratorFunction(r) ? a : a.next().then(function (t) { return t.done ? t.value : a.next(); }); }, defineIteratorMethods(g), define(g, u, "Generator"), define(g, a, function () { return this; }), define(g, "toString", function () { return "[object Generator]"; }), e.keys = function (t) { var e = Object(t), r = []; for (var n in e) r.push(n); return r.reverse(), function next() { for (; r.length;) { var t = r.pop(); if (t in e) return next.value = t, next.done = !1, next; } return next.done = !0, next; }; }, e.values = values, Context.prototype = { constructor: Context, reset: function reset(e) { if (this.prev = 0, this.next = 0, this.sent = this._sent = t, this.done = !1, this.delegate = null, this.method = "next", this.arg = t, this.tryEntries.forEach(resetTryEntry), !e) for (var r in this) "t" === r.charAt(0) && n.call(this, r) && !isNaN(+r.slice(1)) && (this[r] = t); }, stop: function stop() { this.done = !0; var t = this.tryEntries[0].completion; if ("throw" === t.type) throw t.arg; return this.rval; }, dispatchException: function dispatchException(e) { if (this.done) throw e; var r = this; function handle(n, o) { return a.type = "throw", a.arg = e, r.next = n, o && (r.method = "next", r.arg = t), !!o; } for (var o = this.tryEntries.length - 1; o >= 0; --o) { var i = this.tryEntries[o], a = i.completion; if ("root" === i.tryLoc) return handle("end"); if (i.tryLoc <= this.prev) { var c = n.call(i, "catchLoc"), u = n.call(i, "finallyLoc"); if (c && u) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } else if (c) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); } else { if (!u) throw Error("try statement without catch or finally"); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } } } }, abrupt: function abrupt(t, e) { for (var r = this.tryEntries.length - 1; r >= 0; --r) { var o = this.tryEntries[r]; if (o.tryLoc <= this.prev && n.call(o, "finallyLoc") && this.prev < o.finallyLoc) { var i = o; break; } } i && ("break" === t || "continue" === t) && i.tryLoc <= e && e <= i.finallyLoc && (i = null); var a = i ? i.completion : {}; return a.type = t, a.arg = e, i ? (this.method = "next", this.next = i.finallyLoc, y) : this.complete(a); }, complete: function complete(t, e) { if ("throw" === t.type) throw t.arg; return "break" === t.type || "continue" === t.type ? this.next = t.arg : "return" === t.type ? (this.rval = this.arg = t.arg, this.method = "return", this.next = "end") : "normal" === t.type && e && (this.next = e), y; }, finish: function finish(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.finallyLoc === t) return this.complete(r.completion, r.afterLoc), resetTryEntry(r), y; } }, catch: function _catch(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.tryLoc === t) { var n = r.completion; if ("throw" === n.type) { var o = n.arg; resetTryEntry(r); } return o; } } throw Error("illegal catch attempt"); }, delegateYield: function delegateYield(e, r, n) { return this.delegate = { iterator: values(e), resultName: r, nextLoc: n }, "next" === this.method && (this.arg = t), y; } }, e; }
+function _readOnlyError(r) { throw new TypeError('"' + r + '" is read-only'); }
 function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, _toPropertyKey(descriptor.key), descriptor); } }
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
+function _classCallCheck(a, n) { if (!(a instanceof n)) throw new TypeError("Cannot call a class as a function"); }
+function _defineProperties(e, r) { for (var t = 0; t < r.length; t++) { var o = r[t]; o.enumerable = o.enumerable || !1, o.configurable = !0, "value" in o && (o.writable = !0), Object.defineProperty(e, _toPropertyKey(o.key), o); } }
+function _createClass(e, r, t) { return r && _defineProperties(e.prototype, r), t && _defineProperties(e, t), Object.defineProperty(e, "prototype", { writable: !1 }), e; }
 function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : i + ""; }
 function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
 /**
@@ -5886,16 +5888,16 @@ var Object3D = exports.Object3D = /*#__PURE__*/function (_EventDispatcher3) {
   _inherits(Object3D, _EventDispatcher3);
   return _createClass(Object3D, [{
     key: "onBeforeShadow",
-    value: function onBeforeShadow( /* renderer, object, camera, shadowCamera, geometry, depthMaterial, group */) {}
+    value: function onBeforeShadow(/* renderer, object, camera, shadowCamera, geometry, depthMaterial, group */) {}
   }, {
     key: "onAfterShadow",
-    value: function onAfterShadow( /* renderer, object, camera, shadowCamera, geometry, depthMaterial, group */) {}
+    value: function onAfterShadow(/* renderer, object, camera, shadowCamera, geometry, depthMaterial, group */) {}
   }, {
     key: "onBeforeRender",
-    value: function onBeforeRender( /* renderer, scene, camera, geometry, material, group */) {}
+    value: function onBeforeRender(/* renderer, scene, camera, geometry, material, group */) {}
   }, {
     key: "onAfterRender",
-    value: function onAfterRender( /* renderer, scene, camera, geometry, material, group */) {}
+    value: function onAfterRender(/* renderer, scene, camera, geometry, material, group */) {}
   }, {
     key: "applyMatrix4",
     value: function applyMatrix4(matrix) {
@@ -6180,7 +6182,7 @@ var Object3D = exports.Object3D = /*#__PURE__*/function (_EventDispatcher3) {
     }
   }, {
     key: "raycast",
-    value: function raycast( /* raycaster, intersects */) {}
+    value: function raycast(/* raycaster, intersects */) {}
   }, {
     key: "traverse",
     value: function traverse(callback) {
@@ -6936,13 +6938,13 @@ var Color = exports.Color = /*#__PURE__*/function () {
       if (g === undefined && b === undefined) {
         // r is THREE.Color, hex or string
 
-        var _value = r;
-        if (_value && _value.isColor) {
-          this.copy(_value);
-        } else if (typeof _value === 'number') {
-          this.setHex(_value);
-        } else if (typeof _value === 'string') {
-          this.setStyle(_value);
+        var value = r;
+        if (value && value.isColor) {
+          this.copy(value);
+        } else if (typeof value === 'number') {
+          this.setHex(value);
+        } else if (typeof value === 'string') {
+          this.setStyle(value);
         }
       } else {
         this.setRGB(r, g, b);
@@ -7428,13 +7430,13 @@ var Material = exports.Material = /*#__PURE__*/function (_EventDispatcher4) {
     }
   }, {
     key: "onBuild",
-    value: function onBuild( /* shaderobject, renderer */) {}
+    value: function onBuild(/* shaderobject, renderer */) {}
   }, {
     key: "onBeforeRender",
-    value: function onBeforeRender( /* renderer, scene, camera, geometry, object, group */) {}
+    value: function onBeforeRender(/* renderer, scene, camera, geometry, object, group */) {}
   }, {
     key: "onBeforeCompile",
-    value: function onBeforeCompile( /* shaderobject, renderer */) {}
+    value: function onBeforeCompile(/* shaderobject, renderer */) {}
   }, {
     key: "customProgramCacheKey",
     value: function customProgramCacheKey() {
@@ -7754,7 +7756,7 @@ var MeshBasicMaterial = exports.MeshBasicMaterial = /*#__PURE__*/function (_Mate
   return _createClass(MeshBasicMaterial, [{
     key: "copy",
     value: function copy(source) {
-      _get(_getPrototypeOf(MeshBasicMaterial.prototype), "copy", this).call(this, source);
+      _superPropGet(MeshBasicMaterial, "copy", this, 3)([source]);
       this.color.copy(source.color);
       this.map = source.map;
       this.lightMap = source.lightMap;
@@ -7787,32 +7789,32 @@ function _generateTables() {
   var baseTable = new Uint32Array(512);
   var shiftTable = new Uint32Array(512);
   for (var i = 0; i < 256; ++i) {
-    var e = i - 127;
+    var _e = i - 127;
 
     // very small number (0, -0)
 
-    if (e < -27) {
+    if (_e < -27) {
       baseTable[i] = 0x0000;
       baseTable[i | 0x100] = 0x8000;
       shiftTable[i] = 24;
       shiftTable[i | 0x100] = 24;
 
       // small number (denorm)
-    } else if (e < -14) {
-      baseTable[i] = 0x0400 >> -e - 14;
-      baseTable[i | 0x100] = 0x0400 >> -e - 14 | 0x8000;
-      shiftTable[i] = -e - 1;
-      shiftTable[i | 0x100] = -e - 1;
+    } else if (_e < -14) {
+      baseTable[i] = 0x0400 >> -_e - 14;
+      baseTable[i | 0x100] = 0x0400 >> -_e - 14 | 0x8000;
+      shiftTable[i] = -_e - 1;
+      shiftTable[i | 0x100] = -_e - 1;
 
       // normal number
-    } else if (e <= 15) {
-      baseTable[i] = e + 15 << 10;
-      baseTable[i | 0x100] = e + 15 << 10 | 0x8000;
+    } else if (_e <= 15) {
+      baseTable[i] = _e + 15 << 10;
+      baseTable[i | 0x100] = _e + 15 << 10 | 0x8000;
       shiftTable[i] = 13;
       shiftTable[i | 0x100] = 13;
 
       // large number (Infinity, -Infinity)
-    } else if (e < 128) {
+    } else if (_e < 128) {
       baseTable[i] = 0x7c00;
       baseTable[i | 0x100] = 0xfc00;
       shiftTable[i] = 24;
@@ -7834,17 +7836,17 @@ function _generateTables() {
   var offsetTable = new Uint32Array(64);
   for (var _i6 = 1; _i6 < 1024; ++_i6) {
     var m = _i6 << 13; // zero pad mantissa bits
-    var _e = 0; // zero exponent
+    var _e2 = 0; // zero exponent
 
     // normalized
     while ((m & 0x00800000) === 0) {
       m <<= 1;
-      _e -= 0x00800000; // decrement exponent
+      _e2 -= 0x00800000; // decrement exponent
     }
     m &= ~0x00800000; // clear leading 1 bit
-    _e += 0x38800000; // adjust bias
+    _e2 += 0x38800000; // adjust bias
 
-    mantissaTable[_i6] = m | _e;
+    mantissaTable[_i6] = m | _e2;
   }
   for (var _i7 = 1024; _i7 < 2048; ++_i7) {
     mantissaTable[_i7] = 0x38000000 + (_i7 - 1024 << 13);
@@ -9108,7 +9110,7 @@ var Mesh = exports.Mesh = /*#__PURE__*/function (_Object3D) {
   return _createClass(Mesh, [{
     key: "copy",
     value: function copy(source, recursive) {
-      _get(_getPrototypeOf(Mesh.prototype), "copy", this).call(this, source, recursive);
+      _superPropGet(Mesh, "copy", this, 3)([source, recursive]);
       if (source.morphTargetInfluences !== undefined) {
         this.morphTargetInfluences = source.morphTargetInfluences.slice();
       }
@@ -9492,7 +9494,7 @@ var BoxGeometry = exports.BoxGeometry = /*#__PURE__*/function (_BufferGeometry) 
   return _createClass(BoxGeometry, [{
     key: "copy",
     value: function copy(source) {
-      _get(_getPrototypeOf(BoxGeometry.prototype), "copy", this).call(this, source);
+      _superPropGet(BoxGeometry, "copy", this, 3)([source]);
       this.parameters = Object.assign({}, source.parameters);
       return this;
     }
@@ -9612,7 +9614,7 @@ var ShaderMaterial = exports.ShaderMaterial = /*#__PURE__*/function (_Material2)
   return _createClass(ShaderMaterial, [{
     key: "copy",
     value: function copy(source) {
-      _get(_getPrototypeOf(ShaderMaterial.prototype), "copy", this).call(this, source);
+      _superPropGet(ShaderMaterial, "copy", this, 3)([source]);
       this.fragmentShader = source.fragmentShader;
       this.vertexShader = source.vertexShader;
       this.uniforms = cloneUniforms(source.uniforms);
@@ -9630,50 +9632,50 @@ var ShaderMaterial = exports.ShaderMaterial = /*#__PURE__*/function (_Material2)
   }, {
     key: "toJSON",
     value: function toJSON(meta) {
-      var data = _get(_getPrototypeOf(ShaderMaterial.prototype), "toJSON", this).call(this, meta);
+      var data = _superPropGet(ShaderMaterial, "toJSON", this, 3)([meta]);
       data.glslVersion = this.glslVersion;
       data.uniforms = {};
       for (var name in this.uniforms) {
         var uniform = this.uniforms[name];
-        var _value2 = uniform.value;
-        if (_value2 && _value2.isTexture) {
+        var value = uniform.value;
+        if (value && value.isTexture) {
           data.uniforms[name] = {
             type: 't',
-            value: _value2.toJSON(meta).uuid
+            value: value.toJSON(meta).uuid
           };
-        } else if (_value2 && _value2.isColor) {
+        } else if (value && value.isColor) {
           data.uniforms[name] = {
             type: 'c',
-            value: _value2.getHex()
+            value: value.getHex()
           };
-        } else if (_value2 && _value2.isVector2) {
+        } else if (value && value.isVector2) {
           data.uniforms[name] = {
             type: 'v2',
-            value: _value2.toArray()
+            value: value.toArray()
           };
-        } else if (_value2 && _value2.isVector3) {
+        } else if (value && value.isVector3) {
           data.uniforms[name] = {
             type: 'v3',
-            value: _value2.toArray()
+            value: value.toArray()
           };
-        } else if (_value2 && _value2.isVector4) {
+        } else if (value && value.isVector4) {
           data.uniforms[name] = {
             type: 'v4',
-            value: _value2.toArray()
+            value: value.toArray()
           };
-        } else if (_value2 && _value2.isMatrix3) {
+        } else if (value && value.isMatrix3) {
           data.uniforms[name] = {
             type: 'm3',
-            value: _value2.toArray()
+            value: value.toArray()
           };
-        } else if (_value2 && _value2.isMatrix4) {
+        } else if (value && value.isMatrix4) {
           data.uniforms[name] = {
             type: 'm4',
-            value: _value2.toArray()
+            value: value.toArray()
           };
         } else {
           data.uniforms[name] = {
-            value: _value2
+            value: value
           };
 
           // note: the array variants v2v, v3v, v4v, m4v and tv are not supported so far
@@ -9710,7 +9712,7 @@ var Camera = exports.Camera = /*#__PURE__*/function (_Object3D2) {
   return _createClass(Camera, [{
     key: "copy",
     value: function copy(source, recursive) {
-      _get(_getPrototypeOf(Camera.prototype), "copy", this).call(this, source, recursive);
+      _superPropGet(Camera, "copy", this, 3)([source, recursive]);
       this.matrixWorldInverse.copy(source.matrixWorldInverse);
       this.projectionMatrix.copy(source.projectionMatrix);
       this.projectionMatrixInverse.copy(source.projectionMatrixInverse);
@@ -9720,18 +9722,18 @@ var Camera = exports.Camera = /*#__PURE__*/function (_Object3D2) {
   }, {
     key: "getWorldDirection",
     value: function getWorldDirection(target) {
-      return _get(_getPrototypeOf(Camera.prototype), "getWorldDirection", this).call(this, target).negate();
+      return _superPropGet(Camera, "getWorldDirection", this, 3)([target]).negate();
     }
   }, {
     key: "updateMatrixWorld",
     value: function updateMatrixWorld(force) {
-      _get(_getPrototypeOf(Camera.prototype), "updateMatrixWorld", this).call(this, force);
+      _superPropGet(Camera, "updateMatrixWorld", this, 3)([force]);
       this.matrixWorldInverse.copy(this.matrixWorld).invert();
     }
   }, {
     key: "updateWorldMatrix",
     value: function updateWorldMatrix(updateParents, updateChildren) {
-      _get(_getPrototypeOf(Camera.prototype), "updateWorldMatrix", this).call(this, updateParents, updateChildren);
+      _superPropGet(Camera, "updateWorldMatrix", this, 3)([updateParents, updateChildren]);
       this.matrixWorldInverse.copy(this.matrixWorld).invert();
     }
   }, {
@@ -9772,7 +9774,7 @@ var PerspectiveCamera = exports.PerspectiveCamera = /*#__PURE__*/function (_Came
   return _createClass(PerspectiveCamera, [{
     key: "copy",
     value: function copy(source, recursive) {
-      _get(_getPrototypeOf(PerspectiveCamera.prototype), "copy", this).call(this, source, recursive);
+      _superPropGet(PerspectiveCamera, "copy", this, 3)([source, recursive]);
       this.fov = source.fov;
       this.zoom = source.zoom;
       this.near = source.near;
@@ -9945,7 +9947,7 @@ var PerspectiveCamera = exports.PerspectiveCamera = /*#__PURE__*/function (_Came
   }, {
     key: "toJSON",
     value: function toJSON(meta) {
-      var data = _get(_getPrototypeOf(PerspectiveCamera.prototype), "toJSON", this).call(this, meta);
+      var data = _superPropGet(PerspectiveCamera, "toJSON", this, 3)([meta]);
       data.object.fov = this.fov;
       data.object.zoom = this.zoom;
       data.object.near = this.near;
@@ -10706,7 +10708,7 @@ var PlaneGeometry = exports.PlaneGeometry = /*#__PURE__*/function (_BufferGeomet
   return _createClass(PlaneGeometry, [{
     key: "copy",
     value: function copy(source) {
-      _get(_getPrototypeOf(PlaneGeometry.prototype), "copy", this).call(this, source);
+      _superPropGet(PlaneGeometry, "copy", this, 3)([source]);
       this.parameters = Object.assign({}, source.parameters);
       return this;
     }
@@ -12048,20 +12050,20 @@ function WebGLBindingStates(gl, attributes) {
             }
           }
         } else if (materialDefaultAttributeValues !== undefined) {
-          var _value3 = materialDefaultAttributeValues[name];
-          if (_value3 !== undefined) {
-            switch (_value3.length) {
+          var value = materialDefaultAttributeValues[name];
+          if (value !== undefined) {
+            switch (value.length) {
               case 2:
-                gl.vertexAttrib2fv(programAttribute.location, _value3);
+                gl.vertexAttrib2fv(programAttribute.location, value);
                 break;
               case 3:
-                gl.vertexAttrib3fv(programAttribute.location, _value3);
+                gl.vertexAttrib3fv(programAttribute.location, value);
                 break;
               case 4:
-                gl.vertexAttrib4fv(programAttribute.location, _value3);
+                gl.vertexAttrib4fv(programAttribute.location, value);
                 break;
               default:
-                gl.vertexAttrib1fv(programAttribute.location, _value3);
+                gl.vertexAttrib1fv(programAttribute.location, value);
             }
           }
         }
@@ -12415,7 +12417,7 @@ var OrthographicCamera = exports.OrthographicCamera = /*#__PURE__*/function (_Ca
   return _createClass(OrthographicCamera, [{
     key: "copy",
     value: function copy(source, recursive) {
-      _get(_getPrototypeOf(OrthographicCamera.prototype), "copy", this).call(this, source, recursive);
+      _superPropGet(OrthographicCamera, "copy", this, 3)([source, recursive]);
       this.left = source.left;
       this.right = source.right;
       this.top = source.top;
@@ -12482,7 +12484,7 @@ var OrthographicCamera = exports.OrthographicCamera = /*#__PURE__*/function (_Ca
   }, {
     key: "toJSON",
     value: function toJSON(meta) {
-      var data = _get(_getPrototypeOf(OrthographicCamera.prototype), "toJSON", this).call(this, meta);
+      var data = _superPropGet(OrthographicCamera, "toJSON", this, 3)([meta]);
       data.object.zoom = this.zoom;
       data.object.left = this.left;
       data.object.right = this.right;
@@ -13542,14 +13544,14 @@ var DepthTexture = exports.DepthTexture = /*#__PURE__*/function (_Texture4) {
   return _createClass(DepthTexture, [{
     key: "copy",
     value: function copy(source) {
-      _get(_getPrototypeOf(DepthTexture.prototype), "copy", this).call(this, source);
+      _superPropGet(DepthTexture, "copy", this, 3)([source]);
       this.compareFunction = source.compareFunction;
       return this;
     }
   }, {
     key: "toJSON",
     value: function toJSON(meta) {
-      var data = _get(_getPrototypeOf(DepthTexture.prototype), "toJSON", this).call(this, meta);
+      var data = _superPropGet(DepthTexture, "toJSON", this, 3)([meta]);
       if (this.compareFunction !== null) data.compareFunction = this.compareFunction;
       return data;
     }
@@ -14464,9 +14466,9 @@ function generateVertexExtensions(parameters) {
 function generateDefines(defines) {
   var chunks = [];
   for (var name in defines) {
-    var _value4 = defines[name];
-    if (_value4 === false) continue;
-    chunks.push('#define ' + name + ' ' + _value4);
+    var value = defines[name];
+    if (value === false) continue;
+    chunks.push('#define ' + name + ' ' + value);
   }
   return chunks.join('\n');
 }
@@ -15942,7 +15944,7 @@ var MeshDepthMaterial = exports.MeshDepthMaterial = /*#__PURE__*/function (_Mate
   return _createClass(MeshDepthMaterial, [{
     key: "copy",
     value: function copy(source) {
-      _get(_getPrototypeOf(MeshDepthMaterial.prototype), "copy", this).call(this, source);
+      _superPropGet(MeshDepthMaterial, "copy", this, 3)([source]);
       this.depthPacking = source.depthPacking;
       this.map = source.map;
       this.alphaMap = source.alphaMap;
@@ -15974,7 +15976,7 @@ var MeshDistanceMaterial = exports.MeshDistanceMaterial = /*#__PURE__*/function 
   return _createClass(MeshDistanceMaterial, [{
     key: "copy",
     value: function copy(source) {
-      _get(_getPrototypeOf(MeshDistanceMaterial.prototype), "copy", this).call(this, source);
+      _superPropGet(MeshDistanceMaterial, "copy", this, 3)([source]);
       this.map = source.map;
       this.alphaMap = source.alphaMap;
       this.displacementMap = source.displacementMap;
@@ -18797,7 +18799,7 @@ var WebXRManager = /*#__PURE__*/function (_EventDispatcher6) {
       return session;
     };
     _this29.setSession = /*#__PURE__*/function () {
-      var _ref = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(value) {
+      var _ref = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee(value) {
         var layerInit, depthFormat, depthType, glDepthFormat, projectionlayerInit, renderTargetProperties;
         return _regeneratorRuntime().wrap(function _callee$(_context8) {
           while (1) switch (_context8.prev = _context8.next) {
@@ -19583,30 +19585,30 @@ function WebGLUniformsGroups(gl, info, capabilities, state) {
           var values = Array.isArray(uniform.value) ? uniform.value : [uniform.value];
           var arrayOffset = 0;
           for (var k = 0; k < values.length; k++) {
-            var _value5 = values[k];
-            var _info = getUniformSize(_value5);
+            var value = values[k];
+            var _info = getUniformSize(value);
 
             // TODO add integer and struct support
-            if (typeof _value5 === 'number' || typeof _value5 === 'boolean') {
-              uniform.__data[0] = _value5;
+            if (typeof value === 'number' || typeof value === 'boolean') {
+              uniform.__data[0] = value;
               gl.bufferSubData(gl.UNIFORM_BUFFER, offset + arrayOffset, uniform.__data);
-            } else if (_value5.isMatrix3) {
+            } else if (value.isMatrix3) {
               // manually converting 3x3 to 3x4
 
-              uniform.__data[0] = _value5.elements[0];
-              uniform.__data[1] = _value5.elements[1];
-              uniform.__data[2] = _value5.elements[2];
+              uniform.__data[0] = value.elements[0];
+              uniform.__data[1] = value.elements[1];
+              uniform.__data[2] = value.elements[2];
               uniform.__data[3] = 0;
-              uniform.__data[4] = _value5.elements[3];
-              uniform.__data[5] = _value5.elements[4];
-              uniform.__data[6] = _value5.elements[5];
+              uniform.__data[4] = value.elements[3];
+              uniform.__data[5] = value.elements[4];
+              uniform.__data[6] = value.elements[5];
               uniform.__data[7] = 0;
-              uniform.__data[8] = _value5.elements[6];
-              uniform.__data[9] = _value5.elements[7];
-              uniform.__data[10] = _value5.elements[8];
+              uniform.__data[8] = value.elements[6];
+              uniform.__data[9] = value.elements[7];
+              uniform.__data[10] = value.elements[8];
               uniform.__data[11] = 0;
             } else {
-              _value5.toArray(uniform.__data, arrayOffset);
+              value.toArray(uniform.__data, arrayOffset);
               arrayOffset += _info.storage / Float32Array.BYTES_PER_ELEMENT;
             }
           }
@@ -19661,8 +19663,8 @@ function WebGLUniformsGroups(gl, info, capabilities, state) {
         var uniform = uniformArray[j];
         var values = Array.isArray(uniform.value) ? uniform.value : [uniform.value];
         for (var k = 0, kl = values.length; k < kl; k++) {
-          var _value6 = values[k];
-          var _info2 = getUniformSize(_value6);
+          var value = values[k];
+          var _info2 = getUniformSize(value);
 
           // Calculate the chunk offset
           var chunkOffsetUniform = offset % chunkSize;
@@ -20190,7 +20192,7 @@ var WebGLRenderer = exports.WebGLRenderer = /*#__PURE__*/function () {
       console.log('THREE.WebGLRenderer: Context Lost.');
       _isContextLost = true;
     }
-    function onContextRestore( /* event */
+    function onContextRestore(/* event */
     ) {
       console.log('THREE.WebGLRenderer: Context Restored.');
       _isContextLost = false;
@@ -21379,7 +21381,7 @@ var FogExp2 = exports.FogExp2 = /*#__PURE__*/function () {
     }
   }, {
     key: "toJSON",
-    value: function toJSON( /* meta */
+    value: function toJSON(/* meta */
     ) {
       return {
         type: 'FogExp2',
@@ -21408,7 +21410,7 @@ var Fog = exports.Fog = /*#__PURE__*/function () {
     }
   }, {
     key: "toJSON",
-    value: function toJSON( /* meta */
+    value: function toJSON(/* meta */
     ) {
       return {
         type: 'Fog',
@@ -21447,7 +21449,7 @@ var Scene = exports.Scene = /*#__PURE__*/function (_Object3D5) {
   return _createClass(Scene, [{
     key: "copy",
     value: function copy(source, recursive) {
-      _get(_getPrototypeOf(Scene.prototype), "copy", this).call(this, source, recursive);
+      _superPropGet(Scene, "copy", this, 3)([source, recursive]);
       if (source.background !== null) this.background = source.background.clone();
       if (source.environment !== null) this.environment = source.environment.clone();
       if (source.fog !== null) this.fog = source.fog.clone();
@@ -21463,7 +21465,7 @@ var Scene = exports.Scene = /*#__PURE__*/function (_Object3D5) {
   }, {
     key: "toJSON",
     value: function toJSON(meta) {
-      var data = _get(_getPrototypeOf(Scene.prototype), "toJSON", this).call(this, meta);
+      var data = _superPropGet(Scene, "toJSON", this, 3)([meta]);
       if (this.fog !== null) data.object.fog = this.fog.toJSON();
       if (this.backgroundBlurriness > 0) data.object.backgroundBlurriness = this.backgroundBlurriness;
       if (this.backgroundIntensity !== 1) data.object.backgroundIntensity = this.backgroundIntensity;
@@ -21853,7 +21855,7 @@ var SpriteMaterial = exports.SpriteMaterial = /*#__PURE__*/function (_Material5)
   return _createClass(SpriteMaterial, [{
     key: "copy",
     value: function copy(source) {
-      _get(_getPrototypeOf(SpriteMaterial.prototype), "copy", this).call(this, source);
+      _superPropGet(SpriteMaterial, "copy", this, 3)([source]);
       this.color.copy(source.color);
       this.map = source.map;
       this.alphaMap = source.alphaMap;
@@ -21950,7 +21952,7 @@ var Sprite = exports.Sprite = /*#__PURE__*/function (_Object3D6) {
   }, {
     key: "copy",
     value: function copy(source, recursive) {
-      _get(_getPrototypeOf(Sprite.prototype), "copy", this).call(this, source, recursive);
+      _superPropGet(Sprite, "copy", this, 3)([source, recursive]);
       if (source.center !== undefined) this.center.copy(source.center);
       this.material = source.material;
       return this;
@@ -22000,7 +22002,7 @@ var LOD = exports.LOD = /*#__PURE__*/function (_Object3D7) {
   return _createClass(LOD, [{
     key: "copy",
     value: function copy(source) {
-      _get(_getPrototypeOf(LOD.prototype), "copy", this).call(this, source, false);
+      _superPropGet(LOD, "copy", this, 3)([source, false]);
       var levels = source.levels;
       for (var i = 0, l = levels.length; i < l; i++) {
         var level = levels[i];
@@ -22095,7 +22097,7 @@ var LOD = exports.LOD = /*#__PURE__*/function (_Object3D7) {
   }, {
     key: "toJSON",
     value: function toJSON(meta) {
-      var data = _get(_getPrototypeOf(LOD.prototype), "toJSON", this).call(this, meta);
+      var data = _superPropGet(LOD, "toJSON", this, 3)([meta]);
       if (this.autoUpdate === false) data.object.autoUpdate = false;
       data.object.levels = [];
       var levels = this.levels;
@@ -22166,7 +22168,7 @@ var SkinnedMesh = exports.SkinnedMesh = /*#__PURE__*/function (_Mesh) {
   }, {
     key: "copy",
     value: function copy(source, recursive) {
-      _get(_getPrototypeOf(SkinnedMesh.prototype), "copy", this).call(this, source, recursive);
+      _superPropGet(SkinnedMesh, "copy", this, 3)([source, recursive]);
       this.bindMode = source.bindMode;
       this.bindMatrix.copy(source.bindMatrix);
       this.bindMatrixInverse.copy(source.bindMatrixInverse);
@@ -22207,7 +22209,7 @@ var SkinnedMesh = exports.SkinnedMesh = /*#__PURE__*/function (_Mesh) {
   }, {
     key: "getVertexPosition",
     value: function getVertexPosition(index, target) {
-      _get(_getPrototypeOf(SkinnedMesh.prototype), "getVertexPosition", this).call(this, index, target);
+      _superPropGet(SkinnedMesh, "getVertexPosition", this, 3)([index, target]);
       this.applyBoneTransform(index, target);
       return target;
     }
@@ -22247,7 +22249,7 @@ var SkinnedMesh = exports.SkinnedMesh = /*#__PURE__*/function (_Mesh) {
   }, {
     key: "updateMatrixWorld",
     value: function updateMatrixWorld(force) {
-      _get(_getPrototypeOf(SkinnedMesh.prototype), "updateMatrixWorld", this).call(this, force);
+      _superPropGet(SkinnedMesh, "updateMatrixWorld", this, 3)([force]);
       if (this.bindMode === AttachedBindMode) {
         this.bindMatrixInverse.copy(this.matrixWorld).invert();
       } else if (this.bindMode === DetachedBindMode) {
@@ -22519,14 +22521,14 @@ var InstancedBufferAttribute = exports.InstancedBufferAttribute = /*#__PURE__*/f
   return _createClass(InstancedBufferAttribute, [{
     key: "copy",
     value: function copy(source) {
-      _get(_getPrototypeOf(InstancedBufferAttribute.prototype), "copy", this).call(this, source);
+      _superPropGet(InstancedBufferAttribute, "copy", this, 3)([source]);
       this.meshPerAttribute = source.meshPerAttribute;
       return this;
     }
   }, {
     key: "toJSON",
     value: function toJSON() {
-      var data = _get(_getPrototypeOf(InstancedBufferAttribute.prototype), "toJSON", this).call(this);
+      var data = _superPropGet(InstancedBufferAttribute, "toJSON", this, 3)([]);
       data.meshPerAttribute = this.meshPerAttribute;
       data.isInstancedBufferAttribute = true;
       return data;
@@ -22597,7 +22599,7 @@ var InstancedMesh = exports.InstancedMesh = /*#__PURE__*/function (_Mesh2) {
   }, {
     key: "copy",
     value: function copy(source, recursive) {
-      _get(_getPrototypeOf(InstancedMesh.prototype), "copy", this).call(this, source, recursive);
+      _superPropGet(InstancedMesh, "copy", this, 3)([source, recursive]);
       this.instanceMatrix.copy(source.instanceMatrix);
       if (source.morphTexture !== null) this.morphTexture = source.morphTexture.clone();
       if (source.instanceColor !== null) this.instanceColor = source.instanceColor.clone();
@@ -23310,7 +23312,7 @@ var BatchedMesh = exports.BatchedMesh = /*#__PURE__*/function (_Mesh3) {
   }, {
     key: "copy",
     value: function copy(source) {
-      _get(_getPrototypeOf(BatchedMesh.prototype), "copy", this).call(this, source);
+      _superPropGet(BatchedMesh, "copy", this, 3)([source]);
       this.geometry = source.geometry.clone();
       this.perObjectFrustumCulled = source.perObjectFrustumCulled;
       this.sortObjects = source.sortObjects;
@@ -23466,7 +23468,7 @@ var LineBasicMaterial = exports.LineBasicMaterial = /*#__PURE__*/function (_Mate
   return _createClass(LineBasicMaterial, [{
     key: "copy",
     value: function copy(source) {
-      _get(_getPrototypeOf(LineBasicMaterial.prototype), "copy", this).call(this, source);
+      _superPropGet(LineBasicMaterial, "copy", this, 3)([source]);
       this.color.copy(source.color);
       this.map = source.map;
       this.linewidth = source.linewidth;
@@ -23500,7 +23502,7 @@ var Line = exports.Line = /*#__PURE__*/function (_Object3D9) {
   return _createClass(Line, [{
     key: "copy",
     value: function copy(source, recursive) {
-      _get(_getPrototypeOf(Line.prototype), "copy", this).call(this, source, recursive);
+      _superPropGet(Line, "copy", this, 3)([source, recursive]);
       this.material = Array.isArray(source.material) ? source.material.slice() : source.material;
       this.geometry = source.geometry;
       return this;
@@ -23696,7 +23698,7 @@ var PointsMaterial = exports.PointsMaterial = /*#__PURE__*/function (_Material7)
   return _createClass(PointsMaterial, [{
     key: "copy",
     value: function copy(source) {
-      _get(_getPrototypeOf(PointsMaterial.prototype), "copy", this).call(this, source);
+      _superPropGet(PointsMaterial, "copy", this, 3)([source]);
       this.color.copy(source.color);
       this.map = source.map;
       this.alphaMap = source.alphaMap;
@@ -23729,7 +23731,7 @@ var Points = exports.Points = /*#__PURE__*/function (_Object3D10) {
   return _createClass(Points, [{
     key: "copy",
     value: function copy(source, recursive) {
-      _get(_getPrototypeOf(Points.prototype), "copy", this).call(this, source, recursive);
+      _superPropGet(Points, "copy", this, 3)([source, recursive]);
       this.material = Array.isArray(source.material) ? source.material.slice() : source.material;
       this.geometry = source.geometry;
       return this;
@@ -23844,7 +23846,7 @@ var VideoTexture = exports.VideoTexture = /*#__PURE__*/function (_Texture6) {
     key: "update",
     value: function update() {
       var video = this.image;
-      var hasVideoFrameCallback = ('requestVideoFrameCallback' in video);
+      var hasVideoFrameCallback = 'requestVideoFrameCallback' in video;
       if (hasVideoFrameCallback === false && video.readyState >= video.HAVE_CURRENT_DATA) {
         this.needsUpdate = true;
       }
@@ -23973,7 +23975,7 @@ var Curve = exports.Curve = /*#__PURE__*/function () {
   //	- t [0 .. 1]
   return _createClass(Curve, [{
     key: "getPoint",
-    value: function getPoint( /* t, optionalTarget */
+    value: function getPoint(/* t, optionalTarget */
     ) {
       console.warn('THREE.Curve: .getPoint() not implemented.');
       return null;
@@ -24314,7 +24316,7 @@ var EllipseCurve = exports.EllipseCurve = /*#__PURE__*/function (_Curve) {
   }, {
     key: "copy",
     value: function copy(source) {
-      _get(_getPrototypeOf(EllipseCurve.prototype), "copy", this).call(this, source);
+      _superPropGet(EllipseCurve, "copy", this, 3)([source]);
       this.aX = source.aX;
       this.aY = source.aY;
       this.xRadius = source.xRadius;
@@ -24328,7 +24330,7 @@ var EllipseCurve = exports.EllipseCurve = /*#__PURE__*/function (_Curve) {
   }, {
     key: "toJSON",
     value: function toJSON() {
-      var data = _get(_getPrototypeOf(EllipseCurve.prototype), "toJSON", this).call(this);
+      var data = _superPropGet(EllipseCurve, "toJSON", this, 3)([]);
       data.aX = this.aX;
       data.aY = this.aY;
       data.xRadius = this.xRadius;
@@ -24342,7 +24344,7 @@ var EllipseCurve = exports.EllipseCurve = /*#__PURE__*/function (_Curve) {
   }, {
     key: "fromJSON",
     value: function fromJSON(json) {
-      _get(_getPrototypeOf(EllipseCurve.prototype), "fromJSON", this).call(this, json);
+      _superPropGet(EllipseCurve, "fromJSON", this, 3)([json]);
       this.aX = json.aX;
       this.aY = json.aY;
       this.xRadius = json.xRadius;
@@ -24509,7 +24511,7 @@ var CatmullRomCurve3 = exports.CatmullRomCurve3 = /*#__PURE__*/function (_Curve2
   }, {
     key: "copy",
     value: function copy(source) {
-      _get(_getPrototypeOf(CatmullRomCurve3.prototype), "copy", this).call(this, source);
+      _superPropGet(CatmullRomCurve3, "copy", this, 3)([source]);
       this.points = [];
       for (var i = 0, l = source.points.length; i < l; i++) {
         var point = source.points[i];
@@ -24523,7 +24525,7 @@ var CatmullRomCurve3 = exports.CatmullRomCurve3 = /*#__PURE__*/function (_Curve2
   }, {
     key: "toJSON",
     value: function toJSON() {
-      var data = _get(_getPrototypeOf(CatmullRomCurve3.prototype), "toJSON", this).call(this);
+      var data = _superPropGet(CatmullRomCurve3, "toJSON", this, 3)([]);
       data.points = [];
       for (var i = 0, l = this.points.length; i < l; i++) {
         var point = this.points[i];
@@ -24537,7 +24539,7 @@ var CatmullRomCurve3 = exports.CatmullRomCurve3 = /*#__PURE__*/function (_Curve2
   }, {
     key: "fromJSON",
     value: function fromJSON(json) {
-      _get(_getPrototypeOf(CatmullRomCurve3.prototype), "fromJSON", this).call(this, json);
+      _superPropGet(CatmullRomCurve3, "fromJSON", this, 3)([json]);
       this.points = [];
       for (var i = 0, l = json.points.length; i < l; i++) {
         var point = json.points[i];
@@ -24630,7 +24632,7 @@ var CubicBezierCurve = exports.CubicBezierCurve = /*#__PURE__*/function (_Curve3
   }, {
     key: "copy",
     value: function copy(source) {
-      _get(_getPrototypeOf(CubicBezierCurve.prototype), "copy", this).call(this, source);
+      _superPropGet(CubicBezierCurve, "copy", this, 3)([source]);
       this.v0.copy(source.v0);
       this.v1.copy(source.v1);
       this.v2.copy(source.v2);
@@ -24640,7 +24642,7 @@ var CubicBezierCurve = exports.CubicBezierCurve = /*#__PURE__*/function (_Curve3
   }, {
     key: "toJSON",
     value: function toJSON() {
-      var data = _get(_getPrototypeOf(CubicBezierCurve.prototype), "toJSON", this).call(this);
+      var data = _superPropGet(CubicBezierCurve, "toJSON", this, 3)([]);
       data.v0 = this.v0.toArray();
       data.v1 = this.v1.toArray();
       data.v2 = this.v2.toArray();
@@ -24650,7 +24652,7 @@ var CubicBezierCurve = exports.CubicBezierCurve = /*#__PURE__*/function (_Curve3
   }, {
     key: "fromJSON",
     value: function fromJSON(json) {
-      _get(_getPrototypeOf(CubicBezierCurve.prototype), "fromJSON", this).call(this, json);
+      _superPropGet(CubicBezierCurve, "fromJSON", this, 3)([json]);
       this.v0.fromArray(json.v0);
       this.v1.fromArray(json.v1);
       this.v2.fromArray(json.v2);
@@ -24692,7 +24694,7 @@ var CubicBezierCurve3 = exports.CubicBezierCurve3 = /*#__PURE__*/function (_Curv
   }, {
     key: "copy",
     value: function copy(source) {
-      _get(_getPrototypeOf(CubicBezierCurve3.prototype), "copy", this).call(this, source);
+      _superPropGet(CubicBezierCurve3, "copy", this, 3)([source]);
       this.v0.copy(source.v0);
       this.v1.copy(source.v1);
       this.v2.copy(source.v2);
@@ -24702,7 +24704,7 @@ var CubicBezierCurve3 = exports.CubicBezierCurve3 = /*#__PURE__*/function (_Curv
   }, {
     key: "toJSON",
     value: function toJSON() {
-      var data = _get(_getPrototypeOf(CubicBezierCurve3.prototype), "toJSON", this).call(this);
+      var data = _superPropGet(CubicBezierCurve3, "toJSON", this, 3)([]);
       data.v0 = this.v0.toArray();
       data.v1 = this.v1.toArray();
       data.v2 = this.v2.toArray();
@@ -24712,7 +24714,7 @@ var CubicBezierCurve3 = exports.CubicBezierCurve3 = /*#__PURE__*/function (_Curv
   }, {
     key: "fromJSON",
     value: function fromJSON(json) {
-      _get(_getPrototypeOf(CubicBezierCurve3.prototype), "fromJSON", this).call(this, json);
+      _superPropGet(CubicBezierCurve3, "fromJSON", this, 3)([json]);
       this.v0.fromArray(json.v0);
       this.v1.fromArray(json.v1);
       this.v2.fromArray(json.v2);
@@ -24769,7 +24771,7 @@ var LineCurve = exports.LineCurve = /*#__PURE__*/function (_Curve5) {
   }, {
     key: "copy",
     value: function copy(source) {
-      _get(_getPrototypeOf(LineCurve.prototype), "copy", this).call(this, source);
+      _superPropGet(LineCurve, "copy", this, 3)([source]);
       this.v1.copy(source.v1);
       this.v2.copy(source.v2);
       return this;
@@ -24777,7 +24779,7 @@ var LineCurve = exports.LineCurve = /*#__PURE__*/function (_Curve5) {
   }, {
     key: "toJSON",
     value: function toJSON() {
-      var data = _get(_getPrototypeOf(LineCurve.prototype), "toJSON", this).call(this);
+      var data = _superPropGet(LineCurve, "toJSON", this, 3)([]);
       data.v1 = this.v1.toArray();
       data.v2 = this.v2.toArray();
       return data;
@@ -24785,7 +24787,7 @@ var LineCurve = exports.LineCurve = /*#__PURE__*/function (_Curve5) {
   }, {
     key: "fromJSON",
     value: function fromJSON(json) {
-      _get(_getPrototypeOf(LineCurve.prototype), "fromJSON", this).call(this, json);
+      _superPropGet(LineCurve, "fromJSON", this, 3)([json]);
       this.v1.fromArray(json.v1);
       this.v2.fromArray(json.v2);
       return this;
@@ -24840,7 +24842,7 @@ var LineCurve3 = exports.LineCurve3 = /*#__PURE__*/function (_Curve6) {
   }, {
     key: "copy",
     value: function copy(source) {
-      _get(_getPrototypeOf(LineCurve3.prototype), "copy", this).call(this, source);
+      _superPropGet(LineCurve3, "copy", this, 3)([source]);
       this.v1.copy(source.v1);
       this.v2.copy(source.v2);
       return this;
@@ -24848,7 +24850,7 @@ var LineCurve3 = exports.LineCurve3 = /*#__PURE__*/function (_Curve6) {
   }, {
     key: "toJSON",
     value: function toJSON() {
-      var data = _get(_getPrototypeOf(LineCurve3.prototype), "toJSON", this).call(this);
+      var data = _superPropGet(LineCurve3, "toJSON", this, 3)([]);
       data.v1 = this.v1.toArray();
       data.v2 = this.v2.toArray();
       return data;
@@ -24856,7 +24858,7 @@ var LineCurve3 = exports.LineCurve3 = /*#__PURE__*/function (_Curve6) {
   }, {
     key: "fromJSON",
     value: function fromJSON(json) {
-      _get(_getPrototypeOf(LineCurve3.prototype), "fromJSON", this).call(this, json);
+      _superPropGet(LineCurve3, "fromJSON", this, 3)([json]);
       this.v1.fromArray(json.v1);
       this.v2.fromArray(json.v2);
       return this;
@@ -24893,7 +24895,7 @@ var QuadraticBezierCurve = exports.QuadraticBezierCurve = /*#__PURE__*/function 
   }, {
     key: "copy",
     value: function copy(source) {
-      _get(_getPrototypeOf(QuadraticBezierCurve.prototype), "copy", this).call(this, source);
+      _superPropGet(QuadraticBezierCurve, "copy", this, 3)([source]);
       this.v0.copy(source.v0);
       this.v1.copy(source.v1);
       this.v2.copy(source.v2);
@@ -24902,7 +24904,7 @@ var QuadraticBezierCurve = exports.QuadraticBezierCurve = /*#__PURE__*/function 
   }, {
     key: "toJSON",
     value: function toJSON() {
-      var data = _get(_getPrototypeOf(QuadraticBezierCurve.prototype), "toJSON", this).call(this);
+      var data = _superPropGet(QuadraticBezierCurve, "toJSON", this, 3)([]);
       data.v0 = this.v0.toArray();
       data.v1 = this.v1.toArray();
       data.v2 = this.v2.toArray();
@@ -24911,7 +24913,7 @@ var QuadraticBezierCurve = exports.QuadraticBezierCurve = /*#__PURE__*/function 
   }, {
     key: "fromJSON",
     value: function fromJSON(json) {
-      _get(_getPrototypeOf(QuadraticBezierCurve.prototype), "fromJSON", this).call(this, json);
+      _superPropGet(QuadraticBezierCurve, "fromJSON", this, 3)([json]);
       this.v0.fromArray(json.v0);
       this.v1.fromArray(json.v1);
       this.v2.fromArray(json.v2);
@@ -24949,7 +24951,7 @@ var QuadraticBezierCurve3 = exports.QuadraticBezierCurve3 = /*#__PURE__*/functio
   }, {
     key: "copy",
     value: function copy(source) {
-      _get(_getPrototypeOf(QuadraticBezierCurve3.prototype), "copy", this).call(this, source);
+      _superPropGet(QuadraticBezierCurve3, "copy", this, 3)([source]);
       this.v0.copy(source.v0);
       this.v1.copy(source.v1);
       this.v2.copy(source.v2);
@@ -24958,7 +24960,7 @@ var QuadraticBezierCurve3 = exports.QuadraticBezierCurve3 = /*#__PURE__*/functio
   }, {
     key: "toJSON",
     value: function toJSON() {
-      var data = _get(_getPrototypeOf(QuadraticBezierCurve3.prototype), "toJSON", this).call(this);
+      var data = _superPropGet(QuadraticBezierCurve3, "toJSON", this, 3)([]);
       data.v0 = this.v0.toArray();
       data.v1 = this.v1.toArray();
       data.v2 = this.v2.toArray();
@@ -24967,7 +24969,7 @@ var QuadraticBezierCurve3 = exports.QuadraticBezierCurve3 = /*#__PURE__*/functio
   }, {
     key: "fromJSON",
     value: function fromJSON(json) {
-      _get(_getPrototypeOf(QuadraticBezierCurve3.prototype), "fromJSON", this).call(this, json);
+      _superPropGet(QuadraticBezierCurve3, "fromJSON", this, 3)([json]);
       this.v0.fromArray(json.v0);
       this.v1.fromArray(json.v1);
       this.v2.fromArray(json.v2);
@@ -25006,7 +25008,7 @@ var SplineCurve = exports.SplineCurve = /*#__PURE__*/function (_Curve9) {
   }, {
     key: "copy",
     value: function copy(source) {
-      _get(_getPrototypeOf(SplineCurve.prototype), "copy", this).call(this, source);
+      _superPropGet(SplineCurve, "copy", this, 3)([source]);
       this.points = [];
       for (var i = 0, l = source.points.length; i < l; i++) {
         var point = source.points[i];
@@ -25017,7 +25019,7 @@ var SplineCurve = exports.SplineCurve = /*#__PURE__*/function (_Curve9) {
   }, {
     key: "toJSON",
     value: function toJSON() {
-      var data = _get(_getPrototypeOf(SplineCurve.prototype), "toJSON", this).call(this);
+      var data = _superPropGet(SplineCurve, "toJSON", this, 3)([]);
       data.points = [];
       for (var i = 0, l = this.points.length; i < l; i++) {
         var point = this.points[i];
@@ -25028,7 +25030,7 @@ var SplineCurve = exports.SplineCurve = /*#__PURE__*/function (_Curve9) {
   }, {
     key: "fromJSON",
     value: function fromJSON(json) {
-      _get(_getPrototypeOf(SplineCurve.prototype), "fromJSON", this).call(this, json);
+      _superPropGet(SplineCurve, "fromJSON", this, 3)([json]);
       this.points = [];
       for (var i = 0, l = json.points.length; i < l; i++) {
         var point = json.points[i];
@@ -25198,7 +25200,7 @@ var CurvePath = exports.CurvePath = /*#__PURE__*/function (_Curve10) {
   }, {
     key: "copy",
     value: function copy(source) {
-      _get(_getPrototypeOf(CurvePath.prototype), "copy", this).call(this, source);
+      _superPropGet(CurvePath, "copy", this, 3)([source]);
       this.curves = [];
       for (var i = 0, l = source.curves.length; i < l; i++) {
         var curve = source.curves[i];
@@ -25210,7 +25212,7 @@ var CurvePath = exports.CurvePath = /*#__PURE__*/function (_Curve10) {
   }, {
     key: "toJSON",
     value: function toJSON() {
-      var data = _get(_getPrototypeOf(CurvePath.prototype), "toJSON", this).call(this);
+      var data = _superPropGet(CurvePath, "toJSON", this, 3)([]);
       data.autoClose = this.autoClose;
       data.curves = [];
       for (var i = 0, l = this.curves.length; i < l; i++) {
@@ -25222,7 +25224,7 @@ var CurvePath = exports.CurvePath = /*#__PURE__*/function (_Curve10) {
   }, {
     key: "fromJSON",
     value: function fromJSON(json) {
-      _get(_getPrototypeOf(CurvePath.prototype), "fromJSON", this).call(this, json);
+      _superPropGet(CurvePath, "fromJSON", this, 3)([json]);
       this.autoClose = json.autoClose;
       this.curves = [];
       for (var i = 0, l = json.curves.length; i < l; i++) {
@@ -25336,21 +25338,21 @@ var Path = exports.Path = /*#__PURE__*/function (_CurvePath) {
   }, {
     key: "copy",
     value: function copy(source) {
-      _get(_getPrototypeOf(Path.prototype), "copy", this).call(this, source);
+      _superPropGet(Path, "copy", this, 3)([source]);
       this.currentPoint.copy(source.currentPoint);
       return this;
     }
   }, {
     key: "toJSON",
     value: function toJSON() {
-      var data = _get(_getPrototypeOf(Path.prototype), "toJSON", this).call(this);
+      var data = _superPropGet(Path, "toJSON", this, 3)([]);
       data.currentPoint = this.currentPoint.toArray();
       return data;
     }
   }, {
     key: "fromJSON",
     value: function fromJSON(json) {
-      _get(_getPrototypeOf(Path.prototype), "fromJSON", this).call(this, json);
+      _superPropGet(Path, "fromJSON", this, 3)([json]);
       this.currentPoint.fromArray(json.currentPoint);
       return this;
     }
@@ -25494,7 +25496,7 @@ var LatheGeometry = exports.LatheGeometry = /*#__PURE__*/function (_BufferGeomet
   return _createClass(LatheGeometry, [{
     key: "copy",
     value: function copy(source) {
-      _get(_getPrototypeOf(LatheGeometry.prototype), "copy", this).call(this, source);
+      _superPropGet(LatheGeometry, "copy", this, 3)([source]);
       this.parameters = Object.assign({}, source.parameters);
       return this;
     }
@@ -25607,7 +25609,7 @@ var CircleGeometry = exports.CircleGeometry = /*#__PURE__*/function (_BufferGeom
   return _createClass(CircleGeometry, [{
     key: "copy",
     value: function copy(source) {
-      _get(_getPrototypeOf(CircleGeometry.prototype), "copy", this).call(this, source);
+      _superPropGet(CircleGeometry, "copy", this, 3)([source]);
       this.parameters = Object.assign({}, source.parameters);
       return this;
     }
@@ -25848,7 +25850,7 @@ var CylinderGeometry = exports.CylinderGeometry = /*#__PURE__*/function (_Buffer
   return _createClass(CylinderGeometry, [{
     key: "copy",
     value: function copy(source) {
-      _get(_getPrototypeOf(CylinderGeometry.prototype), "copy", this).call(this, source);
+      _superPropGet(CylinderGeometry, "copy", this, 3)([source]);
       this.parameters = Object.assign({}, source.parameters);
       return this;
     }
@@ -26103,7 +26105,7 @@ var PolyhedronGeometry = exports.PolyhedronGeometry = /*#__PURE__*/function (_Bu
   return _createClass(PolyhedronGeometry, [{
     key: "copy",
     value: function copy(source) {
-      _get(_getPrototypeOf(PolyhedronGeometry.prototype), "copy", this).call(this, source);
+      _superPropGet(PolyhedronGeometry, "copy", this, 3)([source]);
       this.parameters = Object.assign({}, source.parameters);
       return this;
     }
@@ -26253,7 +26255,7 @@ var EdgesGeometry = exports.EdgesGeometry = /*#__PURE__*/function (_BufferGeomet
   return _createClass(EdgesGeometry, [{
     key: "copy",
     value: function copy(source) {
-      _get(_getPrototypeOf(EdgesGeometry.prototype), "copy", this).call(this, source);
+      _superPropGet(EdgesGeometry, "copy", this, 3)([source]);
       this.parameters = Object.assign({}, source.parameters);
       return this;
     }
@@ -26292,7 +26294,7 @@ var Shape = exports.Shape = /*#__PURE__*/function (_Path) {
   }, {
     key: "copy",
     value: function copy(source) {
-      _get(_getPrototypeOf(Shape.prototype), "copy", this).call(this, source);
+      _superPropGet(Shape, "copy", this, 3)([source]);
       this.holes = [];
       for (var i = 0, l = source.holes.length; i < l; i++) {
         var hole = source.holes[i];
@@ -26303,7 +26305,7 @@ var Shape = exports.Shape = /*#__PURE__*/function (_Path) {
   }, {
     key: "toJSON",
     value: function toJSON() {
-      var data = _get(_getPrototypeOf(Shape.prototype), "toJSON", this).call(this);
+      var data = _superPropGet(Shape, "toJSON", this, 3)([]);
       data.uuid = this.uuid;
       data.holes = [];
       for (var i = 0, l = this.holes.length; i < l; i++) {
@@ -26315,7 +26317,7 @@ var Shape = exports.Shape = /*#__PURE__*/function (_Path) {
   }, {
     key: "fromJSON",
     value: function fromJSON(json) {
-      _get(_getPrototypeOf(Shape.prototype), "fromJSON", this).call(this, json);
+      _superPropGet(Shape, "fromJSON", this, 3)([json]);
       this.uuid = json.uuid;
       this.holes = [];
       for (var i = 0, l = json.holes.length; i < l; i++) {
@@ -27436,14 +27438,14 @@ var ExtrudeGeometry = exports.ExtrudeGeometry = /*#__PURE__*/function (_BufferGe
   return _createClass(ExtrudeGeometry, [{
     key: "copy",
     value: function copy(source) {
-      _get(_getPrototypeOf(ExtrudeGeometry.prototype), "copy", this).call(this, source);
+      _superPropGet(ExtrudeGeometry, "copy", this, 3)([source]);
       this.parameters = Object.assign({}, source.parameters);
       return this;
     }
   }, {
     key: "toJSON",
     value: function toJSON() {
-      var data = _get(_getPrototypeOf(ExtrudeGeometry.prototype), "toJSON", this).call(this);
+      var data = _superPropGet(ExtrudeGeometry, "toJSON", this, 3)([]);
       var shapes = this.parameters.shapes;
       var options = this.parameters.options;
       return toJSON$1(shapes, options, data);
@@ -27654,7 +27656,7 @@ var RingGeometry = exports.RingGeometry = /*#__PURE__*/function (_BufferGeometry
   return _createClass(RingGeometry, [{
     key: "copy",
     value: function copy(source) {
-      _get(_getPrototypeOf(RingGeometry.prototype), "copy", this).call(this, source);
+      _superPropGet(RingGeometry, "copy", this, 3)([source]);
       this.parameters = Object.assign({}, source.parameters);
       return this;
     }
@@ -27765,14 +27767,14 @@ var ShapeGeometry = exports.ShapeGeometry = /*#__PURE__*/function (_BufferGeomet
   return _createClass(ShapeGeometry, [{
     key: "copy",
     value: function copy(source) {
-      _get(_getPrototypeOf(ShapeGeometry.prototype), "copy", this).call(this, source);
+      _superPropGet(ShapeGeometry, "copy", this, 3)([source]);
       this.parameters = Object.assign({}, source.parameters);
       return this;
     }
   }, {
     key: "toJSON",
     value: function toJSON() {
-      var data = _get(_getPrototypeOf(ShapeGeometry.prototype), "toJSON", this).call(this);
+      var data = _superPropGet(ShapeGeometry, "toJSON", this, 3)([]);
       var shapes = this.parameters.shapes;
       return _toJSON(shapes, data);
     }
@@ -27899,7 +27901,7 @@ var SphereGeometry = exports.SphereGeometry = /*#__PURE__*/function (_BufferGeom
   return _createClass(SphereGeometry, [{
     key: "copy",
     value: function copy(source) {
-      _get(_getPrototypeOf(SphereGeometry.prototype), "copy", this).call(this, source);
+      _superPropGet(SphereGeometry, "copy", this, 3)([source]);
       this.parameters = Object.assign({}, source.parameters);
       return this;
     }
@@ -28026,7 +28028,7 @@ var TorusGeometry = exports.TorusGeometry = /*#__PURE__*/function (_BufferGeomet
   return _createClass(TorusGeometry, [{
     key: "copy",
     value: function copy(source) {
-      _get(_getPrototypeOf(TorusGeometry.prototype), "copy", this).call(this, source);
+      _superPropGet(TorusGeometry, "copy", this, 3)([source]);
       this.parameters = Object.assign({}, source.parameters);
       return this;
     }
@@ -28171,7 +28173,7 @@ var TorusKnotGeometry = exports.TorusKnotGeometry = /*#__PURE__*/function (_Buff
   return _createClass(TorusKnotGeometry, [{
     key: "copy",
     value: function copy(source) {
-      _get(_getPrototypeOf(TorusKnotGeometry.prototype), "copy", this).call(this, source);
+      _superPropGet(TorusKnotGeometry, "copy", this, 3)([source]);
       this.parameters = Object.assign({}, source.parameters);
       return this;
     }
@@ -28319,14 +28321,14 @@ var TubeGeometry = exports.TubeGeometry = /*#__PURE__*/function (_BufferGeometry
   return _createClass(TubeGeometry, [{
     key: "copy",
     value: function copy(source) {
-      _get(_getPrototypeOf(TubeGeometry.prototype), "copy", this).call(this, source);
+      _superPropGet(TubeGeometry, "copy", this, 3)([source]);
       this.parameters = Object.assign({}, source.parameters);
       return this;
     }
   }, {
     key: "toJSON",
     value: function toJSON() {
-      var data = _get(_getPrototypeOf(TubeGeometry.prototype), "toJSON", this).call(this);
+      var data = _superPropGet(TubeGeometry, "toJSON", this, 3)([]);
       data.path = this.parameters.path.toJSON();
       return data;
     }
@@ -28423,7 +28425,7 @@ var WireframeGeometry = exports.WireframeGeometry = /*#__PURE__*/function (_Buff
   return _createClass(WireframeGeometry, [{
     key: "copy",
     value: function copy(source) {
-      _get(_getPrototypeOf(WireframeGeometry.prototype), "copy", this).call(this, source);
+      _superPropGet(WireframeGeometry, "copy", this, 3)([source]);
       this.parameters = Object.assign({}, source.parameters);
       return this;
     }
@@ -28482,7 +28484,7 @@ var ShadowMaterial = exports.ShadowMaterial = /*#__PURE__*/function (_Material8)
   return _createClass(ShadowMaterial, [{
     key: "copy",
     value: function copy(source) {
-      _get(_getPrototypeOf(ShadowMaterial.prototype), "copy", this).call(this, source);
+      _superPropGet(ShadowMaterial, "copy", this, 3)([source]);
       this.color.copy(source.color);
       this.fog = source.fog;
       return this;
@@ -28549,7 +28551,7 @@ var MeshStandardMaterial = exports.MeshStandardMaterial = /*#__PURE__*/function 
   return _createClass(MeshStandardMaterial, [{
     key: "copy",
     value: function copy(source) {
-      _get(_getPrototypeOf(MeshStandardMaterial.prototype), "copy", this).call(this, source);
+      _superPropGet(MeshStandardMaterial, "copy", this, 3)([source]);
       this.defines = {
         'STANDARD': ''
       };
@@ -28699,7 +28701,7 @@ var MeshPhysicalMaterial = exports.MeshPhysicalMaterial = /*#__PURE__*/function 
   }, {
     key: "copy",
     value: function copy(source) {
-      _get(_getPrototypeOf(MeshPhysicalMaterial.prototype), "copy", this).call(this, source);
+      _superPropGet(MeshPhysicalMaterial, "copy", this, 3)([source]);
       this.defines = {
         'STANDARD': '',
         'PHYSICAL': ''
@@ -28784,7 +28786,7 @@ var MeshPhongMaterial = exports.MeshPhongMaterial = /*#__PURE__*/function (_Mate
   return _createClass(MeshPhongMaterial, [{
     key: "copy",
     value: function copy(source) {
-      _get(_getPrototypeOf(MeshPhongMaterial.prototype), "copy", this).call(this, source);
+      _superPropGet(MeshPhongMaterial, "copy", this, 3)([source]);
       this.color.copy(source.color);
       this.specular.copy(source.specular);
       this.shininess = source.shininess;
@@ -28862,7 +28864,7 @@ var MeshToonMaterial = exports.MeshToonMaterial = /*#__PURE__*/function (_Materi
   return _createClass(MeshToonMaterial, [{
     key: "copy",
     value: function copy(source) {
-      _get(_getPrototypeOf(MeshToonMaterial.prototype), "copy", this).call(this, source);
+      _superPropGet(MeshToonMaterial, "copy", this, 3)([source]);
       this.color.copy(source.color);
       this.map = source.map;
       this.gradientMap = source.gradientMap;
@@ -28916,7 +28918,7 @@ var MeshNormalMaterial = exports.MeshNormalMaterial = /*#__PURE__*/function (_Ma
   return _createClass(MeshNormalMaterial, [{
     key: "copy",
     value: function copy(source) {
-      _get(_getPrototypeOf(MeshNormalMaterial.prototype), "copy", this).call(this, source);
+      _superPropGet(MeshNormalMaterial, "copy", this, 3)([source]);
       this.bumpMap = source.bumpMap;
       this.bumpScale = source.bumpScale;
       this.normalMap = source.normalMap;
@@ -28977,7 +28979,7 @@ var MeshLambertMaterial = exports.MeshLambertMaterial = /*#__PURE__*/function (_
   return _createClass(MeshLambertMaterial, [{
     key: "copy",
     value: function copy(source) {
-      _get(_getPrototypeOf(MeshLambertMaterial.prototype), "copy", this).call(this, source);
+      _superPropGet(MeshLambertMaterial, "copy", this, 3)([source]);
       this.color.copy(source.color);
       this.map = source.map;
       this.lightMap = source.lightMap;
@@ -29044,7 +29046,7 @@ var MeshMatcapMaterial = exports.MeshMatcapMaterial = /*#__PURE__*/function (_Ma
   return _createClass(MeshMatcapMaterial, [{
     key: "copy",
     value: function copy(source) {
-      _get(_getPrototypeOf(MeshMatcapMaterial.prototype), "copy", this).call(this, source);
+      _superPropGet(MeshMatcapMaterial, "copy", this, 3)([source]);
       this.defines = {
         'MATCAP': ''
       };
@@ -29083,7 +29085,7 @@ var LineDashedMaterial = exports.LineDashedMaterial = /*#__PURE__*/function (_Li
   return _createClass(LineDashedMaterial, [{
     key: "copy",
     value: function copy(source) {
-      _get(_getPrototypeOf(LineDashedMaterial.prototype), "copy", this).call(this, source);
+      _superPropGet(LineDashedMaterial, "copy", this, 3)([source]);
       this.scale = source.scale;
       this.dashSize = source.dashSize;
       this.gapSize = source.gapSize;
@@ -29480,14 +29482,14 @@ var Interpolant = exports.Interpolant = /*#__PURE__*/function () {
     // Template methods for derived classes:
   }, {
     key: "interpolate_",
-    value: function interpolate_( /* i1, t0, t, t1 */
+    value: function interpolate_(/* i1, t0, t, t1 */
     ) {
       throw new Error('call to abstract method');
       // implementations shall return this.resultBuffer
     }
   }, {
     key: "intervalChanged_",
-    value: function intervalChanged_( /* i1, t0, t1 */
+    value: function intervalChanged_(/* i1, t0, t1 */
     ) {
 
       // empty
@@ -29813,9 +29815,9 @@ var KeyframeTrack = exports.KeyframeTrack = /*#__PURE__*/function () {
       if (values !== undefined) {
         if (isTypedArray(values)) {
           for (var _i89 = 0, n = values.length; _i89 !== n; ++_i89) {
-            var _value7 = values[_i89];
-            if (isNaN(_value7)) {
-              console.error('THREE.KeyframeTrack: Value is not a valid number.', this, _i89, _value7);
+            var value = values[_i89];
+            if (isNaN(value)) {
+              console.error('THREE.KeyframeTrack: Value is not a valid number.', this, _i89, value);
               valid = false;
               break;
             }
@@ -29852,8 +29854,8 @@ var KeyframeTrack = exports.KeyframeTrack = /*#__PURE__*/function () {
               offsetP = offset - stride,
               offsetN = offset + stride;
             for (var j = 0; j !== stride; ++j) {
-              var _value8 = values[offset + j];
-              if (_value8 !== values[offsetP + j] || _value8 !== values[offsetN + j]) {
+              var value = values[offset + j];
+              if (value !== values[offsetP + j] || value !== values[offsetN + j]) {
                 keep = true;
                 break;
               }
@@ -30462,7 +30464,7 @@ var Loader = exports.Loader = /*#__PURE__*/function () {
   }
   return _createClass(Loader, [{
     key: "load",
-    value: function load( /* url, onLoad, onProgress, onError */) {}
+    value: function load(/* url, onLoad, onProgress, onError */) {}
   }, {
     key: "loadAsync",
     value: function loadAsync(url, onProgress) {
@@ -30473,7 +30475,7 @@ var Loader = exports.Loader = /*#__PURE__*/function () {
     }
   }, {
     key: "parse",
-    value: function parse( /* data */) {}
+    value: function parse(/* data */) {}
   }, {
     key: "setCrossOrigin",
     value: function setCrossOrigin(crossOrigin) {
@@ -30518,7 +30520,7 @@ var HttpError = /*#__PURE__*/function (_Error) {
   }
   _inherits(HttpError, _Error);
   return _createClass(HttpError);
-}( /*#__PURE__*/_wrapNativeSuper(Error));
+}(/*#__PURE__*/_wrapNativeSuper(Error));
 var FileLoader = exports.FileLoader = /*#__PURE__*/function (_Loader) {
   function FileLoader(manager) {
     _classCallCheck(this, FileLoader);
@@ -31022,7 +31024,7 @@ var Light = exports.Light = /*#__PURE__*/function (_Object3D11) {
   }, {
     key: "copy",
     value: function copy(source, recursive) {
-      _get(_getPrototypeOf(Light.prototype), "copy", this).call(this, source, recursive);
+      _superPropGet(Light, "copy", this, 3)([source, recursive]);
       this.color.copy(source.color);
       this.intensity = source.intensity;
       return this;
@@ -31030,7 +31032,7 @@ var Light = exports.Light = /*#__PURE__*/function (_Object3D11) {
   }, {
     key: "toJSON",
     value: function toJSON(meta) {
-      var data = _get(_getPrototypeOf(Light.prototype), "toJSON", this).call(this, meta);
+      var data = _superPropGet(Light, "toJSON", this, 3)([meta]);
       data.object.color = this.color.getHex();
       data.object.intensity = this.intensity;
       if (this.groundColor !== undefined) data.object.groundColor = this.groundColor.getHex();
@@ -31059,7 +31061,7 @@ var HemisphereLight = exports.HemisphereLight = /*#__PURE__*/function (_Light) {
   return _createClass(HemisphereLight, [{
     key: "copy",
     value: function copy(source, recursive) {
-      _get(_getPrototypeOf(HemisphereLight.prototype), "copy", this).call(this, source, recursive);
+      _superPropGet(HemisphereLight, "copy", this, 3)([source, recursive]);
       this.groundColor.copy(source.groundColor);
       return this;
     }
@@ -31183,12 +31185,12 @@ var SpotLightShadow = /*#__PURE__*/function (_LightShadow) {
         camera.far = far;
         camera.updateProjectionMatrix();
       }
-      _get(_getPrototypeOf(SpotLightShadow.prototype), "updateMatrices", this).call(this, light);
+      _superPropGet(SpotLightShadow, "updateMatrices", this, 3)([light]);
     }
   }, {
     key: "copy",
     value: function copy(source) {
-      _get(_getPrototypeOf(SpotLightShadow.prototype), "copy", this).call(this, source);
+      _superPropGet(SpotLightShadow, "copy", this, 3)([source]);
       this.focus = source.focus;
       return this;
     }
@@ -31236,7 +31238,7 @@ var SpotLight = exports.SpotLight = /*#__PURE__*/function (_Light2) {
   }, {
     key: "copy",
     value: function copy(source, recursive) {
-      _get(_getPrototypeOf(SpotLight.prototype), "copy", this).call(this, source, recursive);
+      _superPropGet(SpotLight, "copy", this, 3)([source, recursive]);
       this.distance = source.distance;
       this.angle = source.angle;
       this.penumbra = source.penumbra;
@@ -31347,7 +31349,7 @@ var PointLight = exports.PointLight = /*#__PURE__*/function (_Light3) {
   }, {
     key: "copy",
     value: function copy(source, recursive) {
-      _get(_getPrototypeOf(PointLight.prototype), "copy", this).call(this, source, recursive);
+      _superPropGet(PointLight, "copy", this, 3)([source, recursive]);
       this.distance = source.distance;
       this.decay = source.decay;
       this.shadow = source.shadow.clone();
@@ -31388,7 +31390,7 @@ var DirectionalLight = exports.DirectionalLight = /*#__PURE__*/function (_Light4
   }, {
     key: "copy",
     value: function copy(source) {
-      _get(_getPrototypeOf(DirectionalLight.prototype), "copy", this).call(this, source);
+      _superPropGet(DirectionalLight, "copy", this, 3)([source]);
       this.target = source.target.clone();
       this.shadow = source.shadow.clone();
       return this;
@@ -31434,7 +31436,7 @@ var RectAreaLight = exports.RectAreaLight = /*#__PURE__*/function (_Light6) {
   }, {
     key: "copy",
     value: function copy(source) {
-      _get(_getPrototypeOf(RectAreaLight.prototype), "copy", this).call(this, source);
+      _superPropGet(RectAreaLight, "copy", this, 3)([source]);
       this.width = source.width;
       this.height = source.height;
       return this;
@@ -31442,7 +31444,7 @@ var RectAreaLight = exports.RectAreaLight = /*#__PURE__*/function (_Light6) {
   }, {
     key: "toJSON",
     value: function toJSON(meta) {
-      var data = _get(_getPrototypeOf(RectAreaLight.prototype), "toJSON", this).call(this, meta);
+      var data = _superPropGet(RectAreaLight, "toJSON", this, 3)([meta]);
       data.object.width = this.width;
       data.object.height = this.height;
       return data;
@@ -31659,7 +31661,7 @@ var LightProbe = exports.LightProbe = /*#__PURE__*/function (_Light7) {
   return _createClass(LightProbe, [{
     key: "copy",
     value: function copy(source) {
-      _get(_getPrototypeOf(LightProbe.prototype), "copy", this).call(this, source);
+      _superPropGet(LightProbe, "copy", this, 3)([source]);
       this.sh.copy(source.sh);
       return this;
     }
@@ -31673,7 +31675,7 @@ var LightProbe = exports.LightProbe = /*#__PURE__*/function (_Light7) {
   }, {
     key: "toJSON",
     value: function toJSON(meta) {
-      var data = _get(_getPrototypeOf(LightProbe.prototype), "toJSON", this).call(this, meta);
+      var data = _superPropGet(LightProbe, "toJSON", this, 3)([meta]);
       data.object.sh = this.sh.toArray();
       return data;
     }
@@ -32010,14 +32012,14 @@ var InstancedBufferGeometry = exports.InstancedBufferGeometry = /*#__PURE__*/fun
   return _createClass(InstancedBufferGeometry, [{
     key: "copy",
     value: function copy(source) {
-      _get(_getPrototypeOf(InstancedBufferGeometry.prototype), "copy", this).call(this, source);
+      _superPropGet(InstancedBufferGeometry, "copy", this, 3)([source]);
       this.instanceCount = source.instanceCount;
       return this;
     }
   }, {
     key: "toJSON",
     value: function toJSON() {
-      var data = _get(_getPrototypeOf(InstancedBufferGeometry.prototype), "toJSON", this).call(this);
+      var data = _superPropGet(InstancedBufferGeometry, "toJSON", this, 3)([]);
       data.instanceCount = this.instanceCount;
       data.isInstancedBufferGeometry = true;
       return data;
@@ -32180,7 +32182,7 @@ var ObjectLoader = exports.ObjectLoader = /*#__PURE__*/function (_Loader10) {
   }, {
     key: "loadAsync",
     value: function () {
-      var _loadAsync = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2(url, onProgress) {
+      var _loadAsync = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee2(url, onProgress) {
         var scope, path, loader, text, json, metadata;
         return _regeneratorRuntime().wrap(function _callee2$(_context9) {
           while (1) switch (_context9.prev = _context9.next) {
@@ -32251,7 +32253,7 @@ var ObjectLoader = exports.ObjectLoader = /*#__PURE__*/function (_Loader10) {
   }, {
     key: "parseAsync",
     value: function () {
-      var _parseAsync = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3(json) {
+      var _parseAsync = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee3(json) {
         var animations, shapes, geometries, images, textures, materials, object, skeletons;
         return _regeneratorRuntime().wrap(function _callee3$(_context10) {
           while (1) switch (_context10.prev = _context10.next) {
@@ -32444,13 +32446,13 @@ var ObjectLoader = exports.ObjectLoader = /*#__PURE__*/function (_Loader10) {
   }, {
     key: "parseImagesAsync",
     value: function () {
-      var _parseImagesAsync = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee5(json) {
+      var _parseImagesAsync = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee5(json) {
         var scope, images, loader, deserializeImage, _deserializeImage, i, il, image, url, imageArray, j, jl, currentUrl, deserializedImage, _deserializedImage2;
         return _regeneratorRuntime().wrap(function _callee5$(_context12) {
           while (1) switch (_context12.prev = _context12.next) {
             case 0:
               _deserializeImage = function _deserializeImage3() {
-                _deserializeImage = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee4(image) {
+                _deserializeImage = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee4(image) {
                   var _url, path;
                   return _regeneratorRuntime().wrap(function _callee4$(_context11) {
                     while (1) switch (_context11.prev = _context11.next) {
@@ -33230,7 +33232,7 @@ var AudioListener = exports.AudioListener = /*#__PURE__*/function (_Object3D12) 
   }, {
     key: "updateMatrixWorld",
     value: function updateMatrixWorld(force) {
-      _get(_getPrototypeOf(AudioListener.prototype), "updateMatrixWorld", this).call(this, force);
+      _superPropGet(AudioListener, "updateMatrixWorld", this, 3)([force]);
       var listener = this.context.listener;
       var up = this.up;
       this.timeDelta = this._clock.getDelta();
@@ -33552,13 +33554,13 @@ var PositionalAudio = exports.PositionalAudio = /*#__PURE__*/function (_Audio) {
   return _createClass(PositionalAudio, [{
     key: "connect",
     value: function connect() {
-      _get(_getPrototypeOf(PositionalAudio.prototype), "connect", this).call(this);
+      _superPropGet(PositionalAudio, "connect", this, 3)([]);
       this.panner.connect(this.gain);
     }
   }, {
     key: "disconnect",
     value: function disconnect() {
-      _get(_getPrototypeOf(PositionalAudio.prototype), "disconnect", this).call(this);
+      _superPropGet(PositionalAudio, "disconnect", this, 3)([]);
       this.panner.disconnect(this.gain);
     }
   }, {
@@ -33621,7 +33623,7 @@ var PositionalAudio = exports.PositionalAudio = /*#__PURE__*/function (_Audio) {
   }, {
     key: "updateMatrixWorld",
     value: function updateMatrixWorld(force) {
-      _get(_getPrototypeOf(PositionalAudio.prototype), "updateMatrixWorld", this).call(this, force);
+      _superPropGet(PositionalAudio, "updateMatrixWorld", this, 3)([force]);
       if (this.hasPlaybackControl === true && this.isPlaying === false) return;
       this.matrixWorld.decompose(_position, _quaternion, _scale);
       _orientation.set(0, 0, 1).applyQuaternion(_quaternion);
@@ -33798,7 +33800,7 @@ var PropertyMixer = exports.PropertyMixer = /*#__PURE__*/function () {
 
         this._mixBufferRegionAdditive(buffer, offset, this._addIndex * stride, 1, stride);
       }
-      for (var i = stride, e = stride + stride; i !== e; ++i) {
+      for (var i = stride, _e3 = stride + stride; i !== _e3; ++i) {
         if (buffer[i] !== buffer[i + stride]) {
           // value has changed -> update scene graph
 
@@ -33819,7 +33821,7 @@ var PropertyMixer = exports.PropertyMixer = /*#__PURE__*/function () {
       binding.getValue(buffer, originalValueOffset);
 
       // accu[0..1] := orig -- initially detect changes against the original
-      for (var i = stride, e = originalValueOffset; i !== e; ++i) {
+      for (var i = stride, _e4 = originalValueOffset; i !== _e4; ++i) {
         buffer[i] = buffer[originalValueOffset + i % stride];
       }
 
@@ -33917,18 +33919,18 @@ var _wordCharOrDot = '[^' + _RESERVED_CHARS_RE.replace('\\.', '') + ']';
 
 // Parent directories, delimited by '/' or ':'. Currently unused, but must
 // be matched to parse the rest of the track name.
-var _directoryRe = /*@__PURE__*/ /((?:WC+[\/:])*)/.source.replace('WC', _wordChar);
+var _directoryRe = /*@__PURE__*//((?:WC+[\/:])*)/.source.replace('WC', _wordChar);
 
 // Target node. May contain word characters (a-zA-Z0-9_) and '.' or '-'.
-var _nodeRe = /*@__PURE__*/ /(WCOD+)?/.source.replace('WCOD', _wordCharOrDot);
+var _nodeRe = /*@__PURE__*//(WCOD+)?/.source.replace('WCOD', _wordCharOrDot);
 
 // Object on target node, and accessor. May not contain reserved
 // characters. Accessor may contain any character except closing bracket.
-var _objectRe = /*@__PURE__*/ /(?:\.(WC+)(?:\[(.+)\])?)?/.source.replace('WC', _wordChar);
+var _objectRe = /*@__PURE__*//(?:\.(WC+)(?:\[(.+)\])?)?/.source.replace('WC', _wordChar);
 
 // Property and accessor. May not contain reserved characters. Accessor may
 // contain any non-bracket characters.
-var _propertyRe = /*@__PURE__*/ /\.(WC+)(?:\[(.+)\])?/.source.replace('WC', _wordChar);
+var _propertyRe = /*@__PURE__*//\.(WC+)(?:\[(.+)\])?/.source.replace('WC', _wordChar);
 var _trackRe = new RegExp('' + '^' + _directoryRe + _nodeRe + _objectRe + _propertyRe + '$');
 var _supportedObjectNames = ['material', 'materials', 'bones', 'map'];
 var Composite = /*#__PURE__*/function () {
@@ -34355,18 +34357,18 @@ var PropertyBinding = exports.PropertyBinding = /*#__PURE__*/function () {
 
       // search into node subtree.
       if (root.children) {
-        var searchNodeSubtree = function searchNodeSubtree(children) {
+        var _searchNodeSubtree = function searchNodeSubtree(children) {
           for (var i = 0; i < children.length; i++) {
             var childNode = children[i];
             if (childNode.name === nodeName || childNode.uuid === nodeName) {
               return childNode;
             }
-            var result = searchNodeSubtree(childNode.children);
+            var result = _searchNodeSubtree(childNode.children);
             if (result) return result;
           }
           return null;
         };
-        var subTreeNode = searchNodeSubtree(root.children);
+        var subTreeNode = _searchNodeSubtree(root.children);
         if (subTreeNode) {
           return subTreeNode;
         }
@@ -35803,21 +35805,21 @@ var InstancedInterleavedBuffer = exports.InstancedInterleavedBuffer = /*#__PURE_
   return _createClass(InstancedInterleavedBuffer, [{
     key: "copy",
     value: function copy(source) {
-      _get(_getPrototypeOf(InstancedInterleavedBuffer.prototype), "copy", this).call(this, source);
+      _superPropGet(InstancedInterleavedBuffer, "copy", this, 3)([source]);
       this.meshPerAttribute = source.meshPerAttribute;
       return this;
     }
   }, {
     key: "clone",
     value: function clone(data) {
-      var ib = _get(_getPrototypeOf(InstancedInterleavedBuffer.prototype), "clone", this).call(this, data);
+      var ib = _superPropGet(InstancedInterleavedBuffer, "clone", this, 3)([data]);
       ib.meshPerAttribute = this.meshPerAttribute;
       return ib;
     }
   }, {
     key: "toJSON",
     value: function toJSON(data) {
-      var json = _get(_getPrototypeOf(InstancedInterleavedBuffer.prototype), "toJSON", this).call(this, data);
+      var json = _superPropGet(InstancedInterleavedBuffer, "toJSON", this, 3)([data]);
       json.isInstancedInterleavedBuffer = true;
       json.meshPerAttribute = this.meshPerAttribute;
       return json;
@@ -36443,7 +36445,7 @@ var SkeletonHelper = exports.SkeletonHelper = /*#__PURE__*/function (_LineSegmen
         }
       }
       geometry.getAttribute('position').needsUpdate = true;
-      _get(_getPrototypeOf(SkeletonHelper.prototype), "updateMatrixWorld", this).call(this, force);
+      _superPropGet(SkeletonHelper, "updateMatrixWorld", this, 3)([force]);
     }
   }, {
     key: "dispose",
@@ -37101,7 +37103,7 @@ var BoxHelper = exports.BoxHelper = /*#__PURE__*/function (_LineSegments5) {
   }, {
     key: "copy",
     value: function copy(source, recursive) {
-      _get(_getPrototypeOf(BoxHelper.prototype), "copy", this).call(this, source, recursive);
+      _superPropGet(BoxHelper, "copy", this, 3)([source, recursive]);
       this.object = source.object;
       return this;
     }
@@ -37141,7 +37143,7 @@ var Box3Helper = exports.Box3Helper = /*#__PURE__*/function (_LineSegments6) {
       box.getCenter(this.position);
       box.getSize(this.scale);
       this.scale.multiplyScalar(0.5);
-      _get(_getPrototypeOf(Box3Helper.prototype), "updateMatrixWorld", this).call(this, force);
+      _superPropGet(Box3Helper, "updateMatrixWorld", this, 3)([force]);
     }
   }, {
     key: "dispose",
@@ -37190,7 +37192,7 @@ var PlaneHelper = exports.PlaneHelper = /*#__PURE__*/function (_Line3) {
       this.scale.set(0.5 * this.size, 0.5 * this.size, 1);
       this.lookAt(this.plane.normal);
       this.translateZ(-this.plane.constant);
-      _get(_getPrototypeOf(PlaneHelper.prototype), "updateMatrixWorld", this).call(this, force);
+      _superPropGet(PlaneHelper, "updateMatrixWorld", this, 3)([force]);
     }
   }, {
     key: "dispose",
@@ -37277,7 +37279,7 @@ var ArrowHelper = exports.ArrowHelper = /*#__PURE__*/function (_Object3D17) {
   }, {
     key: "copy",
     value: function copy(source) {
-      _get(_getPrototypeOf(ArrowHelper.prototype), "copy", this).call(this, source, false);
+      _superPropGet(ArrowHelper, "copy", this, 3)([source, false]);
       this.line.copy(source.line);
       this.cone.copy(source.cone);
       return this;
@@ -42952,18 +42954,18 @@ Object.defineProperty(exports, "__esModule", {
 exports.OrbitControls = void 0;
 var _three = require("three");
 function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, _toPropertyKey(descriptor.key), descriptor); } }
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
+function _defineProperties(e, r) { for (var t = 0; t < r.length; t++) { var o = r[t]; o.enumerable = o.enumerable || !1, o.configurable = !0, "value" in o && (o.writable = !0), Object.defineProperty(e, _toPropertyKey(o.key), o); } }
+function _createClass(e, r, t) { return r && _defineProperties(e.prototype, r), t && _defineProperties(e, t), Object.defineProperty(e, "prototype", { writable: !1 }), e; }
 function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : i + ""; }
 function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+function _classCallCheck(a, n) { if (!(a instanceof n)) throw new TypeError("Cannot call a class as a function"); }
 function _callSuper(t, o, e) { return o = _getPrototypeOf(o), _possibleConstructorReturn(t, _isNativeReflectConstruct() ? Reflect.construct(o, e || [], _getPrototypeOf(t).constructor) : o.apply(t, e)); }
-function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } else if (call !== void 0) { throw new TypeError("Derived constructors may only return object or undefined"); } return _assertThisInitialized(self); }
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+function _possibleConstructorReturn(t, e) { if (e && ("object" == _typeof(e) || "function" == typeof e)) return e; if (void 0 !== e) throw new TypeError("Derived constructors may only return object or undefined"); return _assertThisInitialized(t); }
+function _assertThisInitialized(e) { if (void 0 === e) throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); return e; }
 function _isNativeReflectConstruct() { try { var t = !Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); } catch (t) {} return (_isNativeReflectConstruct = function _isNativeReflectConstruct() { return !!t; })(); }
-function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf.bind() : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); Object.defineProperty(subClass, "prototype", { writable: false }); if (superClass) _setPrototypeOf(subClass, superClass); }
-function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+function _getPrototypeOf(t) { return _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf.bind() : function (t) { return t.__proto__ || Object.getPrototypeOf(t); }, _getPrototypeOf(t); }
+function _inherits(t, e) { if ("function" != typeof e && null !== e) throw new TypeError("Super expression must either be null or a function"); t.prototype = Object.create(e && e.prototype, { constructor: { value: t, writable: !0, configurable: !0 } }), Object.defineProperty(t, "prototype", { writable: !1 }), e && _setPrototypeOf(t, e); }
+function _setPrototypeOf(t, e) { return _setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function (t, e) { return t.__proto__ = e, t; }, _setPrototypeOf(t, e); }
 // OrbitControls performs orbiting, dollying (zooming), and panning.
 // Unlike TrackballControls, it maintains the "up" direction object.up (+Y by default).
 //
@@ -46404,7 +46406,7 @@ var THREE = _interopRequireWildcard(require("three"));
 var _gsap = _interopRequireDefault(require("gsap"));
 var _OrbitControls = require("three/examples/jsm/controls/OrbitControls");
 var dat = _interopRequireWildcard(require("dat.gui"));
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 function _getRequireWildcardCache(e) { if ("function" != typeof WeakMap) return null; var r = new WeakMap(), t = new WeakMap(); return (_getRequireWildcardCache = function (e) { return e ? t : r; })(e); }
 function _interopRequireWildcard(e, r) { if (!r && e && e.__esModule) return e; if (null === e || "object" != typeof e && "function" != typeof e) return { default: e }; var t = _getRequireWildcardCache(r); if (t && t.has(e)) return t.get(e); var n = { __proto__: null }, a = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var u in e) if ("default" !== u && {}.hasOwnProperty.call(e, u)) { var i = a ? Object.getOwnPropertyDescriptor(e, u) : null; i && (i.get || i.set) ? Object.defineProperty(n, u, i) : n[u] = e[u]; } return n.default = e, t && t.set(e, n), n; }
 // console.log(THREE);
@@ -46416,14 +46418,68 @@ var camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHei
 // 相机位置
 camera.position.set(0, 0, 10);
 scene.add(camera);
+var event = {
+  onLoad: function onLoad(e) {
+    console.log('加载完成', e);
+  },
+  onProgress: function onProgress(url, num, total) {
+    console.log('加载进度', url, num, total);
+  },
+  onError: function onError(e) {
+    console.log('加载报错', e);
+  }
+};
+var loadManager = new THREE.LoadingManager(event.onLoad, event.onProgress, event.onError);
+
+// 纹理
+var textureLoader = new THREE.TextureLoader(loadManager);
+var texture = textureLoader.load('./texture/door/color.jpg');
+var alphaTexture = textureLoader.load('./texture/door/alpha.jpg');
+var aoTexture = textureLoader.load('./texture/door/ambientOcclusion.jpg');
+// 置换贴图， 有层次
+var heightTexture = textureLoader.load('./texture/door/height.jpg');
+// texture.offset.set(0.5, 0.5)
+// texture.center.set(0.5, 0.5)
+// texture.rotation = Math.PI / 4
+// texture.repeat.set(2, 3)
+// texture.wrapS = THREE.MirroredRepeatWrapping
+// texture.wrapT = THREE.RepeatWrapping
+
+// const texture = textureLoader.load('./texture/minecraft.png')
+// texture.minFilter = THREE.NearestFilter
+// texture.magFilter = THREE.NearestFilter
 // 添加物体
-var cubeGeometry = new THREE.BoxGeometry();
-var cubeMeterial = new THREE.MeshBasicMaterial({
-  color: 0xff0000
+var cubeGeometry = new THREE.BoxGeometry(1, 1, 1, 100, 100, 100);
+// const cubeMeterial = new THREE.MeshBasicMaterial({
+var cubeMeterial = new THREE.MeshStandardMaterial({
+  color: '#fff',
+  map: texture,
+  alphaMap: alphaTexture,
+  aoMap: aoTexture,
+  aoMapIntensity: 1,
+  displacementMap: heightTexture,
+  displacementScale: 0.1,
+  transparent: true,
+  side: THREE.DoubleSide,
+  roughness: 1
 });
 var cube = new THREE.Mesh(cubeGeometry, cubeMeterial);
-cube.position.x = 0;
+// cube.position.x = 0
 scene.add(cube);
+var planeGeometry = new THREE.PlaneGeometry(1, 1, 200, 200);
+planeGeometry.setAttribute('uv2', new THREE.BufferAttribute(planeGeometry.attributes.uv.array, 4));
+var plane = new THREE.Mesh(planeGeometry, cubeMeterial);
+plane.position.set(1, 0, 0);
+scene.add(plane);
+console.log(planeGeometry);
+
+// 灯光
+// const light = new THREE.AmbientLight(0xffffff) // 柔和的白光
+// scene.add(light)
+
+var directionalLight = new THREE.DirectionalLight('#fff', 3.0);
+directionalLight.position.set(0, 0, 10);
+scene.add(directionalLight);
 
 // BufferGeometry
 // const geometry = new THREE.BufferGeometry()
@@ -46440,22 +46496,18 @@ scene.add(cube);
 // const mesh = new THREE.Mesh(geometry, material)
 // scene.add(mesh)
 
-for (var i = 0; i < 30; i++) {
-  var geometry = new THREE.BufferGeometry();
-  var vertices = new Float32Array(9);
-  for (var j = 0; j < 9; j++) {
-    vertices[j] = Math.random() * 5;
-  }
-  geometry.setAttribute('position', new THREE.BufferAttribute(vertices, 3));
-  var color = new THREE.Color(Math.random(), Math.random(), Math.random());
-  var material = new THREE.MeshBasicMaterial({
-    color: color,
-    transparent: true,
-    opacity: 0.5
-  });
-  var mesh = new THREE.Mesh(geometry, material);
-  scene.add(mesh);
-}
+// for (let i = 0; i < 30; i++) {
+//   const geometry = new THREE.BufferGeometry()
+//   const vertices = new Float32Array(9)
+//   for (let j = 0; j < 9; j++) {
+//     vertices[j] = Math.random() * 5
+//   }
+//   geometry.setAttribute('position', new THREE.BufferAttribute(vertices, 3))
+//   const color = new THREE.Color(Math.random(), Math.random(), Math.random())
+//   const material = new THREE.MeshBasicMaterial({ color, transparent: true, opacity: 0.5 })
+//   const mesh = new THREE.Mesh(geometry, material)
+//   scene.add(mesh)
+// }
 
 // 初始化渲染器
 var renderer = new THREE.WebGLRenderer();
@@ -46585,7 +46637,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "3635" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "59645" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];
