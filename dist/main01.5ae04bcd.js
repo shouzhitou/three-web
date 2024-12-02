@@ -46399,7 +46399,7 @@ var index = {
   GUI: GUI$1
 };
 var _default = exports.default = index;
-},{}],"../src/main.js":[function(require,module,exports) {
+},{}],"../src/main01.js":[function(require,module,exports) {
 "use strict";
 
 var THREE = _interopRequireWildcard(require("three"));
@@ -46431,84 +46431,6 @@ var event = {
 };
 var loadManager = new THREE.LoadingManager(event.onLoad, event.onProgress, event.onError);
 
-// 纹理
-var textureLoader = new THREE.TextureLoader(loadManager);
-var texture = textureLoader.load('./texture/door/color.jpg');
-var alphaTexture = textureLoader.load('./texture/door/alpha.jpg');
-var aoTexture = textureLoader.load('./texture/door/ambientOcclusion.jpg');
-// 置换贴图， 有层次
-var heightTexture = textureLoader.load('./texture/door/height.jpg');
-// texture.offset.set(0.5, 0.5)
-// texture.center.set(0.5, 0.5)
-// texture.rotation = Math.PI / 4
-// texture.repeat.set(2, 3)
-// texture.wrapS = THREE.MirroredRepeatWrapping
-// texture.wrapT = THREE.RepeatWrapping
-
-// const texture = textureLoader.load('./texture/minecraft.png')
-// texture.minFilter = THREE.NearestFilter
-// texture.magFilter = THREE.NearestFilter
-// 添加物体
-var cubeGeometry = new THREE.BoxGeometry(1, 1, 1, 100, 100, 100);
-// const cubeMeterial = new THREE.MeshBasicMaterial({
-var cubeMeterial = new THREE.MeshStandardMaterial({
-  color: '#fff',
-  map: texture,
-  alphaMap: alphaTexture,
-  aoMap: aoTexture,
-  aoMapIntensity: 1,
-  displacementMap: heightTexture,
-  displacementScale: 0.1,
-  transparent: true,
-  side: THREE.DoubleSide,
-  roughness: 1
-});
-var cube = new THREE.Mesh(cubeGeometry, cubeMeterial);
-// cube.position.x = 0
-scene.add(cube);
-var planeGeometry = new THREE.PlaneGeometry(1, 1, 200, 200);
-planeGeometry.setAttribute('uv2', new THREE.BufferAttribute(planeGeometry.attributes.uv.array, 4));
-var plane = new THREE.Mesh(planeGeometry, cubeMeterial);
-plane.position.set(1, 0, 0);
-scene.add(plane);
-console.log(planeGeometry);
-
-// 灯光
-// const light = new THREE.AmbientLight(0xffffff) // 柔和的白光
-// scene.add(light)
-
-var directionalLight = new THREE.DirectionalLight('#fff', 3.0);
-directionalLight.position.set(0, 0, 10);
-scene.add(directionalLight);
-
-// BufferGeometry
-// const geometry = new THREE.BufferGeometry()
-// const vertices = new Float32Array([
-//   -1.0, -1.0, 1.0,
-//   1.0, -1.0, 1.0,
-//   1.0, 1.0, 1.0,
-//   1.0, 1.0,1.0,
-//   -1.0, 1.0, 1.0,
-//   -1.0, -1.0, 1.0,
-// ])
-// geometry.setAttribute('position', new THREE.BufferAttribute(vertices, 3))
-// const material = new THREE.MeshBasicMaterial({ color: '#eee' })
-// const mesh = new THREE.Mesh(geometry, material)
-// scene.add(mesh)
-
-// for (let i = 0; i < 30; i++) {
-//   const geometry = new THREE.BufferGeometry()
-//   const vertices = new Float32Array(9)
-//   for (let j = 0; j < 9; j++) {
-//     vertices[j] = Math.random() * 5
-//   }
-//   geometry.setAttribute('position', new THREE.BufferAttribute(vertices, 3))
-//   const color = new THREE.Color(Math.random(), Math.random(), Math.random())
-//   const material = new THREE.MeshBasicMaterial({ color, transparent: true, opacity: 0.5 })
-//   const mesh = new THREE.Mesh(geometry, material)
-//   scene.add(mesh)
-// }
-
 // 初始化渲染器
 var renderer = new THREE.WebGLRenderer();
 renderer.setSize(window.innerWidth, window.innerHeight);
@@ -46522,39 +46444,24 @@ var controls = new _OrbitControls.OrbitControls(camera, renderer.domElement);
 controls.enableDamping = true;
 
 // 添加坐标轴
-var axesHelper = new THREE.AxesHelper(5);
-axesHelper.setColors('red', 'pink', 'yellow');
-scene.add(axesHelper);
-var animate1 = _gsap.default.to(cube.position, {
-  x: 5,
-  y: 5,
-  z: 5,
-  duration: 5,
-  repeat: -1,
-  yoyo: true,
-  ease: 'power1.inOut',
-  onStart: function onStart() {
-    console.log('动画开始');
-  }
-});
-window.addEventListener('dblclick', function () {
-  // 动画停止与恢复
-  if (animate1.isActive()) {
-    animate1.pause();
-  } else {
-    animate1.resume();
-  }
-  // 全屏
-  // const fullScreenElement = document.fullscreenElement
-  // if (fullScreenElement) {
-  //   document.exitFullscreen()
-  // } else {
-  //   renderer.domElement.requestFullscreen()
-  // }
-});
+// const axesHelper = new THREE.AxesHelper(5)
+// axesHelper.setColors('red', 'pink', 'yellow')
+// scene.add(axesHelper)
 
-// const clock = new THREE.Clock()
-
+var cubeTextureLoader = new THREE.CubeTextureLoader();
+var envMapTexture = cubeTextureLoader.load(['texture/environmentMaps/2/px.jpg', 'texture/environmentMaps/2/nx.jpg', 'texture/environmentMaps/2/py.jpg', 'texture/environmentMaps/2/ny.jpg', 'texture/environmentMaps/2/pz.jpg', 'texture/environmentMaps/2/nz.jpg']);
+var sphereGeometry = new THREE.SphereGeometry(1, 20, 20);
+var material = new THREE.MeshStandardMaterial({
+  metalness: 0.7,
+  roughness: 0.1
+  // envMap: envMapTexture
+});
+var sphere = new THREE.Mesh(sphereGeometry, material);
+scene.add(sphere);
+scene.background = envMapTexture;
+scene.environment = envMapTexture;
+var light = new THREE.AmbientLight('#fff', 0.5);
+scene.add(light);
 function render() {
   // cube.rotation.x += 0.01
   // cube.rotation.y += 0.01
@@ -46581,37 +46488,32 @@ window.addEventListener('resize', function () {
 });
 
 // 图形界面更改变量，移动选项需要物体静止
-var gui = new dat.GUI();
-gui.add(cube.position, 'x').min(0).max(5).step(0.01).name('xAxis').onChange(function (val) {
-  return console.log(val);
-}).onFinishChange(function (val) {
-  return console.log('完全停下来');
-});
+// const gui = new dat.GUI()
+// gui
+//   .add(cube.position, 'x')
+//   .min(0)
+//   .max(5)
+//   .step(0.01)
+//   .name('xAxis')
+//   .onChange(val => console.log(val))
+//   .onFinishChange(val => console.log('完全停下来'))
 // 修改颜色
-var params = {
-  color: '#ff0000',
-  fn: function fn() {
-    _gsap.default.to(cube.position, {
-      x: 5,
-      y: 5,
-      z: 5,
-      duration: 5,
-      repeat: -1,
-      yoyo: true,
-      ease: 'power1.inOut'
-    });
-  }
-};
-gui.addColor(params, 'color').onChange(function (val) {
-  console.log(val);
-  cube.material.color.set(val);
-});
-gui.add(cube, 'visible').name('display');
+// const params = {
+//   color: '#ff0000',
+//   fn: () => {
+//     gsap.to(cube.position, { x: 5, y: 5, z: 5, duration: 5, repeat: -1, yoyo: true, ease: 'power1.inOut' })
+//   }
+// }
+// gui.addColor(params, 'color').onChange(val => {
+//   console.log(val)
+//   cube.material.color.set(val)
+// })
+// gui.add(cube, 'visible').name('display')
 // gui.add(params, 'fn').name('start')
 
-var folder = gui.addFolder('设置立方体');
-folder.add(cube.material, 'wireframe');
-var folder2 = gui.addFolder('文件夹');
+// const folder = gui.addFolder('设置立方体')
+// folder.add(cube.material, 'wireframe')
+// const folder2 = gui.addFolder('文件夹')
 },{"three":"../node_modules/three/build/three.module.js","gsap":"../node_modules/gsap/index.js","three/examples/jsm/controls/OrbitControls":"../node_modules/three/examples/jsm/controls/OrbitControls.js","dat.gui":"../node_modules/dat.gui/build/dat.gui.module.js"}],"../node_modules/.pnpm/parcel-bundler@1.12.5/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
@@ -46781,5 +46683,5 @@ function hmrAcceptRun(bundle, id) {
     return true;
   }
 }
-},{}]},{},["../node_modules/.pnpm/parcel-bundler@1.12.5/node_modules/parcel-bundler/src/builtins/hmr-runtime.js","../src/main.js"], null)
-//# sourceMappingURL=/main.da4909e4.js.map
+},{}]},{},["../node_modules/.pnpm/parcel-bundler@1.12.5/node_modules/parcel-bundler/src/builtins/hmr-runtime.js","../src/main01.js"], null)
+//# sourceMappingURL=/main01.5ae04bcd.js.map
