@@ -2,6 +2,7 @@ import * as THREE from 'three'
 import gsap from 'gsap'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
 import * as dat from 'dat.gui'
+import { RGBELoader } from 'three/examples/jsm/loaders/RGBELoader.js'
 // console.log(THREE);
 
 // 创建场景
@@ -26,7 +27,6 @@ const event = {
 
 const loadManager = new THREE.LoadingManager(event.onLoad, event.onProgress, event.onError)
 
-
 // 初始化渲染器
 const renderer = new THREE.WebGLRenderer()
 renderer.setSize(window.innerWidth, window.innerHeight)
@@ -44,30 +44,36 @@ controls.enableDamping = true
 // axesHelper.setColors('red', 'pink', 'yellow')
 // scene.add(axesHelper)
 
-
 const cubeTextureLoader = new THREE.CubeTextureLoader()
 const envMapTexture = cubeTextureLoader.load([
-    'texture/environmentMaps/2/px.jpg',
-    'texture/environmentMaps/2/nx.jpg',
-    'texture/environmentMaps/2/py.jpg',
-    'texture/environmentMaps/2/ny.jpg',
-    'texture/environmentMaps/2/pz.jpg',
-    'texture/environmentMaps/2/nz.jpg',
+  'texture/environmentMaps/2/px.jpg',
+  'texture/environmentMaps/2/nx.jpg',
+  'texture/environmentMaps/2/py.jpg',
+  'texture/environmentMaps/2/ny.jpg',
+  'texture/environmentMaps/2/pz.jpg',
+  'texture/environmentMaps/2/nz.jpg'
 ])
+
+const rgbeLoader = new RGBELoader()
+rgbeLoader.loadAsync('texture/hdr/002.hdr').then(texture => {
+  texture.mapping = THREE.EquirectangularRefractionMapping
+  scene.environment = texture
+  scene.background = texture
+})
 
 const sphereGeometry = new THREE.SphereGeometry(1, 20, 20)
 const material = new THREE.MeshStandardMaterial({
-    metalness: 0.7,
-    roughness: 0.1,
-    // envMap: envMapTexture
+  metalness: 0.7,
+  roughness: 0.1
+  // envMap: envMapTexture
 })
 const sphere = new THREE.Mesh(sphereGeometry, material)
 scene.add(sphere)
 
-scene.background = envMapTexture
-scene.environment = envMapTexture
+// scene.background = envMapTexture
+// scene.environment = envMapTexture
 
-const light = new THREE.AmbientLight('#fff', 0.5) 
+const light = new THREE.AmbientLight('#fff', 0.5)
 scene.add(light)
 
 function render() {
