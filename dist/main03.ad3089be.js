@@ -46782,18 +46782,87 @@ var axesHelper = new THREE.AxesHelper(5);
 axesHelper.setColors('red', 'green', 'blue');
 scene.add(axesHelper);
 var sphereGeometry = new THREE.SphereGeometry(3, 20, 20);
+// 新版本没有SphereBufferGeometry
+// 设置删除uv，纹理作用于每一个point
+sphereGeometry.deleteAttribute('uv');
+
 // const material = new THREE.MeshBasicMaterial({ color: 0xff0000, wireframe: true })
 // const mesh = new THREE.Mesh(sphereGeometry, material)
 // scene.add(mesh)
 var pointsMaterial = new THREE.PointsMaterial();
-pointsMaterial.size = 0.05;
+pointsMaterial.size = 0.1;
+pointsMaterial.color.set(0xfff000);
 pointsMaterial.sizeAttenuation = true;
 var textureLoader = new THREE.TextureLoader();
-var texture = textureLoader.load('./texture/particles/2.png');
+var texture = textureLoader.load('./texture/particles/xh.png');
 pointsMaterial.map = texture;
+pointsMaterial.alphaMap = texture;
+pointsMaterial.transparent = true;
+pointsMaterial.depthWrite = false;
+pointsMaterial.blending = THREE.AdditiveBlending;
+pointsMaterial.vertexColors = true;
 var points = new THREE.Points(sphereGeometry, pointsMaterial);
-scene.add(points);
+// scene.add(points)
+
+var particleGeometry = new THREE.BufferGeometry();
+var count = 5000;
+var positions = new Float32Array(count * 3);
+var colors = new Float32Array(count * 3);
+for (var i = 0; i < count * 3; i++) {
+  positions[i] = Math.random() * 20 - 10;
+  colors[i] = Math.random();
+}
+particleGeometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+particleGeometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
+var points2 = new THREE.Points(particleGeometry, pointsMaterial);
+// scene.add(points2)
+
+var params = {
+  count: 500,
+  size: 0.1,
+  radius: 5,
+  branch: 3,
+  color: '#ffffff',
+  rotateScale: 0.3
+};
+var geometry = null;
+var material = null;
+var generateGalaxy = function generateGalaxy() {
+  geometry = new THREE.BufferGeometry();
+  var positions = new Float32Array(params.count * 3);
+  var colors = new Float32Array(params.count * 3);
+  for (var _i = 0; _i < params.count; _i++) {
+    var branchAngel = _i % params.branch * (2 * Math.PI / params.branch);
+    var distance = Math.random() * params.radius;
+    var randomX = Math.random();
+    var randomY = Math.random();
+    var randomZ = Math.random();
+    var cur = _i * 3;
+    positions[cur] = Math.cos(branchAngel + distance * params.rotateScale) * distance + randomX;
+    positions[cur + 1] = 0 + randomY;
+    positions[cur + 2] = Math.sin(branchAngel + distance * params.rotateScale) * distance + randomZ;
+  }
+  var texture = new THREE.TextureLoader().load('texture/particles/1.png');
+  geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+  material = new THREE.PointsMaterial({
+    color: new THREE.Color(params.color),
+    size: params.size,
+    sizeAttenuation: true,
+    depthWrite: false,
+    blending: THREE.AdditiveBlending,
+    map: texture,
+    alphaMap: texture,
+    transparent: true
+    // vertexColors: true
+  });
+  var points = new THREE.Points(geometry, material);
+  console.log(points);
+  return points;
+};
+scene.add(generateGalaxy());
 function render() {
+  var time = clock.getElapsedTime();
+  points2.rotation.x = time * 0.1;
   controls.update();
   renderer.render(scene, camera);
   requestAnimationFrame(render);
