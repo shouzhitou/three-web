@@ -46741,7 +46741,7 @@ var RGBELoader = exports.RGBELoader = /*#__PURE__*/function (_DataTextureLoader)
     }
   }]);
 }(_three.DataTextureLoader);
-},{"three":"../node_modules/three/build/three.module.js"}],"../src/main03.js":[function(require,module,exports) {
+},{"three":"../node_modules/three/build/three.module.js"}],"../src/main04.js":[function(require,module,exports) {
 "use strict";
 
 var THREE = _interopRequireWildcard(require("three"));
@@ -46761,7 +46761,7 @@ var scene = new THREE.Scene();
 // 创建相机
 var camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
 // 相机位置
-camera.position.set(0, 0, 10);
+camera.position.set(0, 0, 100);
 scene.add(camera);
 
 // 初始化渲染器
@@ -46781,97 +46781,129 @@ controls.enableDamping = true;
 var axesHelper = new THREE.AxesHelper(5);
 axesHelper.setColors('red', 'green', 'blue');
 scene.add(axesHelper);
-var sphereGeometry = new THREE.SphereGeometry(3, 20, 20);
-// 新版本没有SphereBufferGeometry
-// 设置删除uv，纹理作用于每一个point
-sphereGeometry.deleteAttribute('uv');
+var raycaster = new THREE.Raycaster();
+var mouse = new THREE.Vector2();
+// window.addEventListener('click', e => {
+//   console.log(e)
+//   mouse.x = (e.clientX / window.innerWidth) * 2 - 1
+//   mouse.y = -((e.clientY / window.innerHeight) * 2 - 1)
+//   raycaster.setFromCamera(mouse, camera)
+//   const result = raycaster.intersectObjects(cubeArr)
+//   result[0].object.material = redMaterial
+// })
 
-// const material = new THREE.MeshBasicMaterial({ color: 0xff0000, wireframe: true })
-// const mesh = new THREE.Mesh(sphereGeometry, material)
-// scene.add(mesh)
-var pointsMaterial = new THREE.PointsMaterial();
-pointsMaterial.size = 0.1;
-pointsMaterial.color.set(0xfff000);
-pointsMaterial.sizeAttenuation = true;
-var textureLoader = new THREE.TextureLoader();
-var texture = textureLoader.load('./texture/particles/xh.png');
-pointsMaterial.map = texture;
-pointsMaterial.alphaMap = texture;
-pointsMaterial.transparent = true;
-pointsMaterial.depthWrite = false;
-pointsMaterial.blending = THREE.AdditiveBlending;
-pointsMaterial.vertexColors = true;
-var points = new THREE.Points(sphereGeometry, pointsMaterial);
-// scene.add(points)
-
-var particleGeometry = new THREE.BufferGeometry();
-var count = 5000;
-var positions = new Float32Array(count * 3);
-var colors = new Float32Array(count * 3);
-for (var i = 0; i < count * 3; i++) {
-  positions[i] = Math.random() * 20 - 10;
-  colors[i] = Math.random();
-}
-particleGeometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
-particleGeometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
-var points2 = new THREE.Points(particleGeometry, pointsMaterial);
-// scene.add(points2)
-
-var params = {
-  count: 10000,
-  size: 0.1,
-  radius: 6,
-  branch: 3,
-  color: '#ff6030',
-  edgeColor: '#1b3984',
-  rotateScale: 0.3
-};
-var centerColor = new THREE.Color(params.color);
-var edgeColor = new THREE.Color(params.edgeColor);
-var geometry = null;
-var material = null;
-var generateGalaxy = function generateGalaxy() {
-  geometry = new THREE.BufferGeometry();
-  var positions = new Float32Array(params.count * 3);
-  var colors = new Float32Array(params.count * 3);
-  for (var _i = 0; _i < params.count; _i++) {
-    var branchAngel = _i % params.branch * (2 * Math.PI / params.branch);
-    var distance = Math.random() * params.radius * Math.pow(Math.random(), 3);
-    var randomX = Math.pow(Math.random() * 2 - 1, 3) * (params.radius - distance) / 5;
-    var randomY = Math.pow(Math.random() * 2 - 1, 3) * (params.radius - distance) / 5;
-    var randomZ = Math.pow(Math.random() * 2 - 1, 3) * (params.radius - distance) / 5;
-    var cur = _i * 3;
-    positions[cur] = Math.cos(branchAngel + distance * params.rotateScale) * distance + randomX;
-    positions[cur + 1] = 0 + randomY;
-    positions[cur + 2] = Math.sin(branchAngel + distance * params.rotateScale) * distance + randomZ;
-    var mixColor = centerColor.clone();
-    mixColor.lerp(edgeColor, distance / params.radius);
-    colors[cur] = mixColor.r;
-    colors[cur + 1] = mixColor.g;
-    colors[cur + 2] = mixColor.b;
+var cubeGeometry = new THREE.BoxGeometry(2, 2, 2);
+var material = new THREE.MeshBasicMaterial({
+  wireframe: true
+});
+var redMaterial = new THREE.MeshBasicMaterial({
+  color: 'red'
+});
+var cubeArr = [];
+var cubeGroup = new THREE.Group();
+for (var x = -5; x < 5; x++) {
+  for (var y = -5; y < 5; y++) {
+    for (var z = -5; z < 5; z++) {
+      var cube = new THREE.Mesh(cubeGeometry, material);
+      cube.position.set(x * 2 - 4, y * 2 - 4, z * 2 - 4);
+      cubeGroup.add(cube);
+      cubeArr.push(cube);
+    }
   }
-  var texture = new THREE.TextureLoader().load('texture/particles/1.png');
-  geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
-  geometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
-  material = new THREE.PointsMaterial({
-    // color: new THREE.Color(params.color),
-    size: params.size,
-    sizeAttenuation: true,
-    depthWrite: false,
-    blending: THREE.AdditiveBlending,
-    map: texture,
-    alphaMap: texture,
+}
+scene.add(cubeGroup);
+_gsap.default.to(cubeGroup.rotation, {
+  x: '+=' + Math.PI * 2,
+  y: '+=' + Math.PI * 2,
+  duration: 10,
+  ease: 'power2.inOut',
+  repeat: -1
+});
+var sjxGroup = new THREE.Group();
+for (var i = 0; i < 50; i++) {
+  // 每一个三角形，需要3个顶点，每个顶点需要3个值
+  var geometry = new THREE.BufferGeometry();
+  var positionArray = new Float32Array(9);
+  for (var j = 0; j < 9; j++) {
+    if (j % 3 == 1) {
+      positionArray[j] = Math.random() * 10 - 5;
+    } else {
+      positionArray[j] = Math.random() * 10 - 5;
+    }
+  }
+  geometry.setAttribute('position', new THREE.BufferAttribute(positionArray, 3));
+  var color = new THREE.Color(Math.random(), Math.random(), Math.random());
+  var _material = new THREE.MeshBasicMaterial({
+    color: color,
     transparent: true,
-    vertexColors: true
+    opacity: 0.5,
+    side: THREE.DoubleSide
   });
-  var points = new THREE.Points(geometry, material);
-  return points;
-};
-var starRings = generateGalaxy();
-scene.add(starRings);
+  // 根据几何体和材质创建物体
+  var sjxMesh = new THREE.Mesh(geometry, _material);
+  //   console.log(mesh);
+  sjxGroup.add(sjxMesh);
+}
+sjxGroup.position.set(0, -30, 0);
+scene.add(sjxGroup);
+_gsap.default.to(sjxGroup.rotation, {
+  x: '-=' + Math.PI * 2,
+  z: '+=' + Math.PI * 2,
+  duration: 2,
+  ease: 'power2.inOut',
+  repeat: -1
+});
+var sphereGroup = new THREE.Group();
+var sphereGeometry = new THREE.SphereGeometry(1, 20, 20);
+var spherematerial = new THREE.MeshStandardMaterial({
+  side: THREE.DoubleSide,
+  color: '#ff0000'
+});
+var sphere = new THREE.Mesh(sphereGeometry, spherematerial);
+// 投射阴影
+sphere.castShadow = true;
+sphereGroup.add(sphere);
+
+// // 创建平面
+var planeGeometry = new THREE.PlaneGeometry(20, 20);
+var plane = new THREE.Mesh(planeGeometry, spherematerial);
+plane.position.set(0, -1, 0);
+plane.rotation.x = -Math.PI / 2;
+// 接收阴影
+plane.receiveShadow = true;
+sphereGroup.add(plane);
+var light = new THREE.AmbientLight(0xffffff, 0.5); // soft white light
+sphereGroup.add(light);
+var smallBall = new THREE.Mesh(new THREE.SphereGeometry(0.1, 20, 20), new THREE.MeshBasicMaterial({
+  color: 0xff0000
+}));
+smallBall.position.set(2, 2, 2);
+var pointLight = new THREE.PointLight(0xff0000, 3);
+// pointLight.position.set(2, 2, 2);
+pointLight.castShadow = true;
+// 设置阴影贴图模糊度
+pointLight.shadow.radius = 20;
+// 设置阴影贴图的分辨率
+pointLight.shadow.mapSize.set(512, 512);
+smallBall.add(pointLight);
+sphereGroup.add(smallBall);
+sphereGroup.position.set(0, -60, 0);
+scene.add(sphereGroup);
+_gsap.default.to(smallBall.position, {
+  x: -3,
+  duration: 6,
+  ease: 'power2.inOut',
+  repeat: -1,
+  yoyo: true
+});
+_gsap.default.to(smallBall.position, {
+  y: 0,
+  duration: 0.5,
+  ease: 'power2.inOut',
+  repeat: -1,
+  yoyo: true
+});
 function render() {
-  var time = clock.getElapsedTime();
-  starRings.rotation.y = -time * 0.1;
   controls.update();
   renderer.render(scene, camera);
   requestAnimationFrame(render);
@@ -46883,6 +46915,38 @@ window.addEventListener('resize', function () {
   camera.updateProjectionMatrix();
   renderer.setSize(window.innerWidth, window.innerHeight);
   renderer.setPixelRatio(window.devicePixelRatio);
+});
+var arrGroup = [cubeGroup, sjxGroup, sphereGroup];
+var currentPage = 0;
+// 监听滚动事件
+window.addEventListener('scroll', function () {
+  //   console.log(window.scrollY);
+  var newPage = Math.round(window.scrollY / window.innerHeight);
+  if (newPage != currentPage) {
+    currentPage = newPage;
+    console.log('改变页面，当前是：' + currentPage);
+    console.log(arrGroup[currentPage].rotation);
+    _gsap.default.to(arrGroup[currentPage].rotation, {
+      z: '+=' + Math.PI * 2,
+      x: '+=' + Math.PI * 2,
+      duration: 2,
+      onComplete: function onComplete() {
+        console.log('旋转完成');
+      }
+    });
+
+    // gsap.to(`.page${currentPage} h1`, {
+    //   rotate: "+=360",
+    //   duration: 1,
+    // });
+    _gsap.default.fromTo(".page".concat(currentPage, " h1"), {
+      x: -300
+    }, {
+      x: 0,
+      rotate: '+=360',
+      duration: 1
+    });
+  }
 });
 },{"three":"../node_modules/three/build/three.module.js","gsap":"../node_modules/gsap/index.js","three/examples/jsm/controls/OrbitControls":"../node_modules/three/examples/jsm/controls/OrbitControls.js","dat.gui":"../node_modules/dat.gui/build/dat.gui.module.js","three/examples/jsm/loaders/RGBELoader.js":"../node_modules/three/examples/jsm/loaders/RGBELoader.js"}],"../node_modules/.pnpm/parcel-bundler@1.12.5/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
@@ -47053,5 +47117,5 @@ function hmrAcceptRun(bundle, id) {
     return true;
   }
 }
-},{}]},{},["../node_modules/.pnpm/parcel-bundler@1.12.5/node_modules/parcel-bundler/src/builtins/hmr-runtime.js","../src/main03.js"], null)
-//# sourceMappingURL=/main03.ad3089be.js.map
+},{}]},{},["../node_modules/.pnpm/parcel-bundler@1.12.5/node_modules/parcel-bundler/src/builtins/hmr-runtime.js","../src/main04.js"], null)
+//# sourceMappingURL=/main04.b7f52c2d.js.map

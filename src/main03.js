@@ -72,13 +72,17 @@ const points2 = new THREE.Points(particleGeometry, pointsMaterial)
 // scene.add(points2)
 
 const params = {
-  count: 500,
+  count: 10000,
   size: 0.1,
-  radius: 5,
+  radius: 6,
   branch: 3,
-  color: '#ffffff',
+  color: '#ff6030',
+  edgeColor: '#1b3984',
   rotateScale: 0.3
 }
+
+const centerColor = new THREE.Color(params.color)
+const edgeColor = new THREE.Color(params.edgeColor)
 
 let geometry = null
 let material = null
@@ -86,42 +90,52 @@ const generateGalaxy = () => {
   geometry = new THREE.BufferGeometry()
   const positions = new Float32Array(params.count * 3)
   const colors = new Float32Array(params.count * 3)
+
   for (let i = 0; i < params.count; i++) {
     const branchAngel = (i % params.branch) * ((2 * Math.PI) / params.branch)
-    const distance = Math.random() * params.radius
+    const distance = Math.random() * params.radius * Math.pow(Math.random(), 3)
 
-    const randomX = Math.random()
-    const randomY = Math.random()
-    const randomZ = Math.random()
+    const randomX = (Math.pow(Math.random() * 2 - 1, 3) * (params.radius - distance)) / 5
+    const randomY = (Math.pow(Math.random() * 2 - 1, 3) * (params.radius - distance)) / 5
+    const randomZ = (Math.pow(Math.random() * 2 - 1, 3) * (params.radius - distance)) / 5
 
     const cur = i * 3
     positions[cur] = Math.cos(branchAngel + distance * params.rotateScale) * distance + randomX
     positions[cur + 1] = 0 + randomY
     positions[cur + 2] = Math.sin(branchAngel + distance * params.rotateScale) * distance + randomZ
+
+    const mixColor = centerColor.clone()
+    mixColor.lerp(edgeColor, distance / params.radius)
+
+    colors[cur] = mixColor.r
+    colors[cur + 1] = mixColor.g
+    colors[cur + 2] = mixColor.b
   }
+
   const texture = new THREE.TextureLoader().load('texture/particles/1.png')
   geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3))
+  geometry.setAttribute('color', new THREE.BufferAttribute(colors, 3))
+
   material = new THREE.PointsMaterial({
-    color: new THREE.Color(params.color),
+    // color: new THREE.Color(params.color),
     size: params.size,
     sizeAttenuation: true,
     depthWrite: false,
     blending: THREE.AdditiveBlending,
     map: texture,
     alphaMap: texture,
-    transparent: true
-    // vertexColors: true
+    transparent: true,
+    vertexColors: true
   })
   const points = new THREE.Points(geometry, material)
-  console.log(points)
-
   return points
 }
-scene.add(generateGalaxy())
+const starRings = generateGalaxy()
+scene.add(starRings)
 
 function render() {
   let time = clock.getElapsedTime()
-  points2.rotation.x = time * 0.1
+  starRings.rotation.y = -time * 0.1
   controls.update()
   renderer.render(scene, camera)
   requestAnimationFrame(render)
