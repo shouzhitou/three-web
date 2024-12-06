@@ -46741,7 +46741,7 @@ var RGBELoader = exports.RGBELoader = /*#__PURE__*/function (_DataTextureLoader)
     }
   }]);
 }(_three.DataTextureLoader);
-},{"three":"../node_modules/three/build/three.module.js"}],"../src/main04.js":[function(require,module,exports) {
+},{"three":"../node_modules/three/build/three.module.js"}],"../src/main05.js":[function(require,module,exports) {
 "use strict";
 
 var THREE = _interopRequireWildcard(require("three"));
@@ -46761,13 +46761,11 @@ var scene = new THREE.Scene();
 // 创建相机
 var camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
 // 相机位置
-camera.position.set(0, 0, 40);
+camera.position.set(0, 0, 100);
 scene.add(camera);
 
 // 初始化渲染器
-var renderer = new THREE.WebGLRenderer({
-  alpha: true
-});
+var renderer = new THREE.WebGLRenderer();
 renderer.setSize(window.innerWidth, window.innerHeight);
 renderer.shadowMap.enabled = true;
 // webgl渲染的canvas添加到body
@@ -46775,25 +46773,25 @@ document.body.appendChild(renderer.domElement);
 // 渲染器渲染场景
 
 // 轨道控制器 (只声明就能转动页面)
-// const controls = new OrbitControls(camera, renderer.domElement)
-// // 设置阻尼，需要调用update
-// controls.enableDamping = true
+var controls = new _OrbitControls.OrbitControls(camera, renderer.domElement);
+// 设置阻尼，需要调用update
+controls.enableDamping = true;
 
 // 添加坐标轴
 var axesHelper = new THREE.AxesHelper(5);
 axesHelper.setColors('red', 'green', 'blue');
-// scene.add(axesHelper)
-
+scene.add(axesHelper);
 var raycaster = new THREE.Raycaster();
 var mouse = new THREE.Vector2();
-window.addEventListener('mousemove', function (e) {
-  console.log(e);
-  mouse.x = e.clientX / window.innerWidth * 2 - 1;
-  mouse.y = -(e.clientY / window.innerHeight * 2 - 1);
-  // raycaster.setFromCamera(mouse, camera)
-  // const result = raycaster.intersectObjects(cubeArr)
-  // result[0].object.material = redMaterial
-});
+// window.addEventListener('click', e => {
+//   console.log(e)
+//   mouse.x = (e.clientX / window.innerWidth) * 2 - 1
+//   mouse.y = -((e.clientY / window.innerHeight) * 2 - 1)
+//   raycaster.setFromCamera(mouse, camera)
+//   const result = raycaster.intersectObjects(cubeArr)
+//   result[0].object.material = redMaterial
+// })
+
 var cubeGeometry = new THREE.BoxGeometry(2, 2, 2);
 var material = new THREE.MeshBasicMaterial({
   wireframe: true
@@ -46803,9 +46801,9 @@ var redMaterial = new THREE.MeshBasicMaterial({
 });
 var cubeArr = [];
 var cubeGroup = new THREE.Group();
-for (var x = 0; x < 5; x++) {
-  for (var y = 0; y < 5; y++) {
-    for (var z = 0; z < 5; z++) {
+for (var x = -5; x < 5; x++) {
+  for (var y = -5; y < 5; y++) {
+    for (var z = -5; z < 5; z++) {
       var cube = new THREE.Mesh(cubeGeometry, material);
       cube.position.set(x * 2 - 4, y * 2 - 4, z * 2 - 4);
       cubeGroup.add(cube);
@@ -46827,12 +46825,11 @@ for (var i = 0; i < 50; i++) {
   var geometry = new THREE.BufferGeometry();
   var positionArray = new Float32Array(9);
   for (var j = 0; j < 9; j++) {
-    // if (j % 3 == 1) {
-    //   positionArray[j] = Math.random() * 10 - 15
-    // } else {
-    //   positionArray[j] = Math.random() * 10 - 5
-    // }
-    positionArray[j] = Math.random() * 10 - 5;
+    if (j % 3 == 1) {
+      positionArray[j] = Math.random() * 10 - 5;
+    } else {
+      positionArray[j] = Math.random() * 10 - 5;
+    }
   }
   geometry.setAttribute('position', new THREE.BufferAttribute(positionArray, 3));
   var color = new THREE.Color(Math.random(), Math.random(), Math.random());
@@ -46847,7 +46844,7 @@ for (var i = 0; i < 50; i++) {
   //   console.log(mesh);
   sjxGroup.add(sjxMesh);
 }
-sjxGroup.position.set(0, -40, 0);
+sjxGroup.position.set(0, -30, 0);
 scene.add(sjxGroup);
 _gsap.default.to(sjxGroup.rotation, {
   x: '-=' + Math.PI * 2,
@@ -46890,7 +46887,7 @@ pointLight.shadow.radius = 20;
 pointLight.shadow.mapSize.set(512, 512);
 smallBall.add(pointLight);
 sphereGroup.add(smallBall);
-sphereGroup.position.set(0, -80, 0);
+sphereGroup.position.set(0, -60, 0);
 scene.add(sphereGroup);
 _gsap.default.to(smallBall.position, {
   x: -3,
@@ -46907,11 +46904,7 @@ _gsap.default.to(smallBall.position, {
   yoyo: true
 });
 function render() {
-  var deltaTime = clock.getDelta();
-  // controls.update()
-  camera.position.y = -(window.scrollY / window.innerHeight) * 40;
-  // 水平移动，教程没讲明白
-  camera.position.x += (mouse.x * 10 - camera.position.x) * deltaTime * 5;
+  controls.update();
   renderer.render(scene, camera);
   requestAnimationFrame(render);
 }
@@ -46980,7 +46973,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "63649" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "57088" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];
@@ -47124,5 +47117,5 @@ function hmrAcceptRun(bundle, id) {
     return true;
   }
 }
-},{}]},{},["../node_modules/.pnpm/parcel-bundler@1.12.5/node_modules/parcel-bundler/src/builtins/hmr-runtime.js","../src/main04.js"], null)
-//# sourceMappingURL=/main04.b7f52c2d.js.map
+},{}]},{},["../node_modules/.pnpm/parcel-bundler@1.12.5/node_modules/parcel-bundler/src/builtins/hmr-runtime.js","../src/main05.js"], null)
+//# sourceMappingURL=/main05.b31f3fa6.js.map

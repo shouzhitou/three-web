@@ -12,11 +12,11 @@ const scene = new THREE.Scene()
 // 创建相机
 const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000)
 // 相机位置
-camera.position.set(0, 0, 100)
+camera.position.set(0, 0, 40)
 scene.add(camera)
 
 // 初始化渲染器
-const renderer = new THREE.WebGLRenderer()
+const renderer = new THREE.WebGLRenderer({ alpha: true })
 renderer.setSize(window.innerWidth, window.innerHeight)
 renderer.shadowMap.enabled = true
 // webgl渲染的canvas添加到body
@@ -24,25 +24,25 @@ document.body.appendChild(renderer.domElement)
 // 渲染器渲染场景
 
 // 轨道控制器 (只声明就能转动页面)
-const controls = new OrbitControls(camera, renderer.domElement)
-// 设置阻尼，需要调用update
-controls.enableDamping = true
+// const controls = new OrbitControls(camera, renderer.domElement)
+// // 设置阻尼，需要调用update
+// controls.enableDamping = true
 
 // 添加坐标轴
 const axesHelper = new THREE.AxesHelper(5)
 axesHelper.setColors('red', 'green', 'blue')
-scene.add(axesHelper)
+// scene.add(axesHelper)
 
 const raycaster = new THREE.Raycaster()
 const mouse = new THREE.Vector2()
-// window.addEventListener('click', e => {
-//   console.log(e)
-//   mouse.x = (e.clientX / window.innerWidth) * 2 - 1
-//   mouse.y = -((e.clientY / window.innerHeight) * 2 - 1)
-//   raycaster.setFromCamera(mouse, camera)
-//   const result = raycaster.intersectObjects(cubeArr)
-//   result[0].object.material = redMaterial
-// })
+window.addEventListener('mousemove', e => {
+  console.log(e)
+  mouse.x = (e.clientX / window.innerWidth) * 2 - 1
+  mouse.y = -((e.clientY / window.innerHeight) * 2 - 1)
+  // raycaster.setFromCamera(mouse, camera)
+  // const result = raycaster.intersectObjects(cubeArr)
+  // result[0].object.material = redMaterial
+})
 
 const cubeGeometry = new THREE.BoxGeometry(2, 2, 2)
 const material = new THREE.MeshBasicMaterial({
@@ -52,9 +52,9 @@ const redMaterial = new THREE.MeshBasicMaterial({ color: 'red' })
 
 const cubeArr = []
 let cubeGroup = new THREE.Group()
-for (let x = -5; x < 5; x++) {
-  for (let y = -5; y < 5; y++) {
-    for (let z = -5; z < 5; z++) {
+for (let x = 0; x < 5; x++) {
+  for (let y = 0; y < 5; y++) {
+    for (let z = 0; z < 5; z++) {
       const cube = new THREE.Mesh(cubeGeometry, material)
       cube.position.set(x * 2 - 4, y * 2 - 4, z * 2 - 4)
 
@@ -80,11 +80,12 @@ for (let i = 0; i < 50; i++) {
   const geometry = new THREE.BufferGeometry()
   const positionArray = new Float32Array(9)
   for (let j = 0; j < 9; j++) {
-    if (j % 3 == 1) {
-      positionArray[j] = Math.random() * 10 - 5
-    } else {
-      positionArray[j] = Math.random() * 10 - 5
-    }
+    // if (j % 3 == 1) {
+    //   positionArray[j] = Math.random() * 10 - 15
+    // } else {
+    //   positionArray[j] = Math.random() * 10 - 5
+    // }
+    positionArray[j] = Math.random() * 10 - 5
   }
   geometry.setAttribute('position', new THREE.BufferAttribute(positionArray, 3))
   let color = new THREE.Color(Math.random(), Math.random(), Math.random())
@@ -99,7 +100,7 @@ for (let i = 0; i < 50; i++) {
   //   console.log(mesh);
   sjxGroup.add(sjxMesh)
 }
-sjxGroup.position.set(0, -30, 0)
+sjxGroup.position.set(0, -40, 0)
 scene.add(sjxGroup)
 
 gsap.to(sjxGroup.rotation, {
@@ -147,7 +148,7 @@ pointLight.shadow.mapSize.set(512, 512)
 smallBall.add(pointLight)
 sphereGroup.add(smallBall)
 
-sphereGroup.position.set(0, -60, 0)
+sphereGroup.position.set(0, -80, 0)
 scene.add(sphereGroup)
 
 gsap.to(smallBall.position, {
@@ -166,7 +167,12 @@ gsap.to(smallBall.position, {
 })
 
 function render() {
-  controls.update()
+  let deltaTime = clock.getDelta()
+  // controls.update()
+  camera.position.y = -(window.scrollY / window.innerHeight) * 40
+  // 水平移动，教程没讲明白
+  camera.position.x += (mouse.x * 10 - camera.position.x) * deltaTime * 5
+
   renderer.render(scene, camera)
   requestAnimationFrame(render)
 }
