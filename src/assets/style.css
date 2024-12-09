@@ -5,7 +5,7 @@
 body {
   background-color: rgb(36, 58, 66);
 }
-canvas {
+/* canvas {
   position: fixed;
   left: 0;
   top: 0;
@@ -15,7 +15,6 @@ canvas {
   display: flex;
   color: #fff;
   flex-direction: column;
-  /* justify-content: center; */
   align-items: center;
   position: relative;
   z-index: 10;
@@ -30,4 +29,4 @@ canvas {
 }
 ::-webkit-scrollbar {
   display: none;
-}
+} */
