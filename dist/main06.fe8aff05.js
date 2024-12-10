@@ -58386,6 +58386,10 @@ const endShapeContactEvent = {
   shapeA: null,
   shapeB: null
 };
+},{}],"../src/shader/basic/vertex.glsl":[function(require,module,exports) {
+module.exports = "#define GLSLIFY 1\nvoid main() {\n    gl_Position  = projectionMatrix * viewMatrix * modelMatrix * vec4(position, 1.0);\n}";
+},{}],"../src/shader/basic/fragment.glsl":[function(require,module,exports) {
+module.exports = "#define GLSLIFY 1\nvoid main() {\n    gl_FragColor = vec4(1.0, 1.0, 0.0, 0.1);\n}";
 },{}],"../src/main06.js":[function(require,module,exports) {
 "use strict";
 
@@ -58395,6 +58399,8 @@ var _OrbitControls = require("three/examples/jsm/controls/OrbitControls");
 var dat = _interopRequireWildcard(require("dat.gui"));
 var _RGBELoader = require("three/examples/jsm/loaders/RGBELoader.js");
 var CANNON = _interopRequireWildcard(require("cannon-es"));
+var _vertex = _interopRequireDefault(require("./shader/basic/vertex.glsl"));
+var _fragment = _interopRequireDefault(require("./shader/basic/fragment.glsl"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 function _getRequireWildcardCache(e) { if ("function" != typeof WeakMap) return null; var r = new WeakMap(), t = new WeakMap(); return (_getRequireWildcardCache = function (e) { return e ? t : r; })(e); }
 function _interopRequireWildcard(e, r) { if (!r && e && e.__esModule) return e; if (null === e || "object" != typeof e && "function" != typeof e) return { default: e }; var t = _getRequireWildcardCache(r); if (t && t.has(e)) return t.get(e); var n = { __proto__: null }, a = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var u in e) if ("default" !== u && {}.hasOwnProperty.call(e, u)) { var i = a ? Object.getOwnPropertyDescriptor(e, u) : null; i && (i.get || i.set) ? Object.defineProperty(n, u, i) : n[u] = e[u]; } return n.default = e, t && t.set(e, n), n; }
@@ -58408,7 +58414,7 @@ var scene = new THREE.Scene();
 // 创建相机
 var camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 300);
 // 相机位置
-camera.position.set(0, 0, 40);
+camera.position.set(0, 0, 5);
 scene.add(camera);
 
 // 初始化渲染器
@@ -58427,30 +58433,23 @@ var controls = new _OrbitControls.OrbitControls(camera, renderer.domElement);
 controls.enableDamping = true;
 
 // 添加坐标轴
-var axesHelper = new THREE.AxesHelper(5);
+var axesHelper = new THREE.AxesHelper(10);
 axesHelper.setColors('red', 'green', 'blue');
 scene.add(axesHelper);
+var textureLoader = new THREE.TextureLoader();
+var texture = textureLoader.load();
+var params = {
+  uFrenquency: 10,
+  uScale: 0.1
+};
 
-// 创建球和平面
-var sphereGeometry = new THREE.SphereGeometry(1, 20, 20);
-var sphereMaterial = new THREE.MeshStandardMaterial();
-var sphere = new THREE.Mesh(sphereGeometry, sphereMaterial);
-sphere.castShadow = true;
-scene.add(sphere);
-var floor = new THREE.Mesh(new THREE.PlaneGeometry(20, 20), new THREE.MeshStandardMaterial());
-floor.position.set(0, -5, 0);
-floor.rotation.x = -Math.PI / 2;
-floor.receiveShadow = true;
+// const material = new THREE.MeshBasicMaterial({ color: '#00ff00' })
+var shaderMaterial = new THREE.ShaderMaterial({
+  vertexShader: _vertex.default,
+  fragmentShader: _fragment.default
+});
+var floor = new THREE.Mesh(new THREE.PlaneGeometry(1, 1, 64, 64), shaderMaterial);
 scene.add(floor);
-
-//添加环境光和平行光
-var ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
-scene.add(ambientLight);
-var dirLight = new THREE.DirectionalLight(0xffffff, 0.5);
-dirLight.castShadow = true;
-scene.add(dirLight);
-var world = new CANNON.World();
-world.gravity.set(0, -9.8, 0);
 function render() {
   renderer.render(scene, camera);
   requestAnimationFrame(render);
@@ -58463,7 +58462,7 @@ window.addEventListener('resize', function () {
   renderer.setSize(window.innerWidth, window.innerHeight);
   renderer.setPixelRatio(window.devicePixelRatio);
 });
-},{"three":"../node_modules/three/build/three.module.js","gsap":"../node_modules/gsap/index.js","three/examples/jsm/controls/OrbitControls":"../node_modules/three/examples/jsm/controls/OrbitControls.js","dat.gui":"../node_modules/dat.gui/build/dat.gui.module.js","three/examples/jsm/loaders/RGBELoader.js":"../node_modules/three/examples/jsm/loaders/RGBELoader.js","cannon-es":"../node_modules/cannon-es/dist/cannon-es.js"}],"../node_modules/.pnpm/parcel-bundler@1.12.5/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"three":"../node_modules/three/build/three.module.js","gsap":"../node_modules/gsap/index.js","three/examples/jsm/controls/OrbitControls":"../node_modules/three/examples/jsm/controls/OrbitControls.js","dat.gui":"../node_modules/dat.gui/build/dat.gui.module.js","three/examples/jsm/loaders/RGBELoader.js":"../node_modules/three/examples/jsm/loaders/RGBELoader.js","cannon-es":"../node_modules/cannon-es/dist/cannon-es.js","./shader/basic/vertex.glsl":"../src/shader/basic/vertex.glsl","./shader/basic/fragment.glsl":"../src/shader/basic/fragment.glsl"}],"../node_modules/.pnpm/parcel-bundler@1.12.5/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -58488,7 +58487,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "57327" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "3165" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];
