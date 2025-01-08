@@ -5,8 +5,8 @@ import * as dat from 'dat.gui'
 import { RGBELoader } from 'three/examples/jsm/loaders/RGBELoader.js'
 import * as CANNON from 'cannon-es'
 
-import  basicVertexShader from './shader/basic/vertex.glsl'
-import basicFragmentShader from './shader/basic/fragment.glsl'
+import basicVertexShader from './shader/raw/vertex.glsl'
+import basicFragmentShader from './shader/raw/fragment.glsl'
 // console.log(THREE);
 const clock = new THREE.Clock()
 const gui = new dat.GUI()
@@ -47,13 +47,17 @@ const params = {
 }
 
 // const material = new THREE.MeshBasicMaterial({ color: '#00ff00' })
-const shaderMaterial = new THREE.ShaderMaterial({
-  vertexShader: basicVertexShader,
-  fragmentShader:  basicFragmentShader
-})
-const floor = new THREE.Mesh(new THREE.PlaneGeometry(1, 1, 64, 64), shaderMaterial)
-scene.add(floor)
+// const shaderMaterial = new THREE.ShaderMaterial({
+//   vertexShader: basicVertexShader,
+//   fragmentShader:  basicFragmentShader
+// })
 
+const rawShaderMaterial = new THREE.RawShaderMaterial({
+  vertexShader: basicVertexShader,
+  fragmentShader: basicFragmentShader
+})
+const floor = new THREE.Mesh(new THREE.PlaneGeometry(1, 1, 64, 64), rawShaderMaterial)
+scene.add(floor)
 
 function render() {
   renderer.render(scene, camera)

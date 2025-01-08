@@ -46399,6 +46399,352 @@ var index = {
   GUI: GUI$1
 };
 var _default = exports.default = index;
+},{}],"../node_modules/three/examples/jsm/loaders/RGBELoader.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.RGBELoader = void 0;
+var _three = require("three");
+function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
+function _classCallCheck(a, n) { if (!(a instanceof n)) throw new TypeError("Cannot call a class as a function"); }
+function _defineProperties(e, r) { for (var t = 0; t < r.length; t++) { var o = r[t]; o.enumerable = o.enumerable || !1, o.configurable = !0, "value" in o && (o.writable = !0), Object.defineProperty(e, _toPropertyKey(o.key), o); } }
+function _createClass(e, r, t) { return r && _defineProperties(e.prototype, r), t && _defineProperties(e, t), Object.defineProperty(e, "prototype", { writable: !1 }), e; }
+function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : i + ""; }
+function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
+function _callSuper(t, o, e) { return o = _getPrototypeOf(o), _possibleConstructorReturn(t, _isNativeReflectConstruct() ? Reflect.construct(o, e || [], _getPrototypeOf(t).constructor) : o.apply(t, e)); }
+function _possibleConstructorReturn(t, e) { if (e && ("object" == _typeof(e) || "function" == typeof e)) return e; if (void 0 !== e) throw new TypeError("Derived constructors may only return object or undefined"); return _assertThisInitialized(t); }
+function _assertThisInitialized(e) { if (void 0 === e) throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); return e; }
+function _isNativeReflectConstruct() { try { var t = !Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); } catch (t) {} return (_isNativeReflectConstruct = function _isNativeReflectConstruct() { return !!t; })(); }
+function _superPropGet(t, o, e, r) { var p = _get(_getPrototypeOf(1 & r ? t.prototype : t), o, e); return 2 & r && "function" == typeof p ? function (t) { return p.apply(e, t); } : p; }
+function _get() { return _get = "undefined" != typeof Reflect && Reflect.get ? Reflect.get.bind() : function (e, t, r) { var p = _superPropBase(e, t); if (p) { var n = Object.getOwnPropertyDescriptor(p, t); return n.get ? n.get.call(arguments.length < 3 ? e : r) : n.value; } }, _get.apply(null, arguments); }
+function _superPropBase(t, o) { for (; !{}.hasOwnProperty.call(t, o) && null !== (t = _getPrototypeOf(t));); return t; }
+function _getPrototypeOf(t) { return _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf.bind() : function (t) { return t.__proto__ || Object.getPrototypeOf(t); }, _getPrototypeOf(t); }
+function _inherits(t, e) { if ("function" != typeof e && null !== e) throw new TypeError("Super expression must either be null or a function"); t.prototype = Object.create(e && e.prototype, { constructor: { value: t, writable: !0, configurable: !0 } }), Object.defineProperty(t, "prototype", { writable: !1 }), e && _setPrototypeOf(t, e); }
+function _setPrototypeOf(t, e) { return _setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function (t, e) { return t.__proto__ = e, t; }, _setPrototypeOf(t, e); }
+// https://github.com/mrdoob/three.js/issues/5552
+// http://en.wikipedia.org/wiki/RGBE_image_format
+var RGBELoader = exports.RGBELoader = /*#__PURE__*/function (_DataTextureLoader) {
+  function RGBELoader(manager) {
+    var _this;
+    _classCallCheck(this, RGBELoader);
+    _this = _callSuper(this, RGBELoader, [manager]);
+    _this.type = _three.HalfFloatType;
+    return _this;
+  }
+
+  // adapted from http://www.graphics.cornell.edu/~bjw/rgbe.html
+  _inherits(RGBELoader, _DataTextureLoader);
+  return _createClass(RGBELoader, [{
+    key: "parse",
+    value: function parse(buffer) {
+      var /* default error routine.  change this to change error handling */
+        rgbe_read_error = 1,
+        rgbe_write_error = 2,
+        rgbe_format_error = 3,
+        rgbe_memory_error = 4,
+        rgbe_error = function rgbe_error(rgbe_error_code, msg) {
+          switch (rgbe_error_code) {
+            case rgbe_read_error:
+              throw new Error('THREE.RGBELoader: Read Error: ' + (msg || ''));
+            case rgbe_write_error:
+              throw new Error('THREE.RGBELoader: Write Error: ' + (msg || ''));
+            case rgbe_format_error:
+              throw new Error('THREE.RGBELoader: Bad File Format: ' + (msg || ''));
+            default:
+            case rgbe_memory_error:
+              throw new Error('THREE.RGBELoader: Memory Error: ' + (msg || ''));
+          }
+        },
+        /* offsets to red, green, and blue components in a data (float) pixel */
+        //RGBE_DATA_RED = 0,
+        //RGBE_DATA_GREEN = 1,
+        //RGBE_DATA_BLUE = 2,
+
+        /* number of floats per pixel, use 4 since stored in rgba image format */
+        //RGBE_DATA_SIZE = 4,
+
+        /* flags indicating which fields in an rgbe_header_info are valid */
+        RGBE_VALID_PROGRAMTYPE = 1,
+        RGBE_VALID_FORMAT = 2,
+        RGBE_VALID_DIMENSIONS = 4,
+        NEWLINE = '\n',
+        fgets = function fgets(buffer, lineLimit, consume) {
+          var chunkSize = 128;
+          lineLimit = !lineLimit ? 1024 : lineLimit;
+          var p = buffer.pos,
+            i = -1,
+            len = 0,
+            s = '',
+            chunk = String.fromCharCode.apply(null, new Uint16Array(buffer.subarray(p, p + chunkSize)));
+          while (0 > (i = chunk.indexOf(NEWLINE)) && len < lineLimit && p < buffer.byteLength) {
+            s += chunk;
+            len += chunk.length;
+            p += chunkSize;
+            chunk += String.fromCharCode.apply(null, new Uint16Array(buffer.subarray(p, p + chunkSize)));
+          }
+          if (-1 < i) {
+            /*for (i=l-1; i>=0; i--) {
+            	byteCode = m.charCodeAt(i);
+            	if (byteCode > 0x7f && byteCode <= 0x7ff) byteLen++;
+            	else if (byteCode > 0x7ff && byteCode <= 0xffff) byteLen += 2;
+            	if (byteCode >= 0xDC00 && byteCode <= 0xDFFF) i--; //trail surrogate
+            }*/
+            if (false !== consume) buffer.pos += len + i + 1;
+            return s + chunk.slice(0, i);
+          }
+          return false;
+        },
+        /* minimal header reading.  modify if you want to parse more information */
+        RGBE_ReadHeader = function RGBE_ReadHeader(buffer) {
+          // regexes to parse header info fields
+          var magic_token_re = /^#\?(\S+)/,
+            gamma_re = /^\s*GAMMA\s*=\s*(\d+(\.\d+)?)\s*$/,
+            exposure_re = /^\s*EXPOSURE\s*=\s*(\d+(\.\d+)?)\s*$/,
+            format_re = /^\s*FORMAT=(\S+)\s*$/,
+            dimensions_re = /^\s*\-Y\s+(\d+)\s+\+X\s+(\d+)\s*$/,
+            // RGBE format header struct
+            header = {
+              valid: 0,
+              /* indicate which fields are valid */
+
+              string: '',
+              /* the actual header string */
+
+              comments: '',
+              /* comments found in header */
+
+              programtype: 'RGBE',
+              /* listed at beginning of file to identify it after "#?". defaults to "RGBE" */
+
+              format: '',
+              /* RGBE format, default 32-bit_rle_rgbe */
+
+              gamma: 1.0,
+              /* image has already been gamma corrected with given gamma. defaults to 1.0 (no correction) */
+
+              exposure: 1.0,
+              /* a value of 1.0 in an image corresponds to <exposure> watts/steradian/m^2. defaults to 1.0 */
+
+              width: 0,
+              height: 0 /* image dimensions, width/height */
+            };
+          var line, match;
+          if (buffer.pos >= buffer.byteLength || !(line = fgets(buffer))) {
+            rgbe_error(rgbe_read_error, 'no header found');
+          }
+
+          /* if you want to require the magic token then uncomment the next line */
+          if (!(match = line.match(magic_token_re))) {
+            rgbe_error(rgbe_format_error, 'bad initial token');
+          }
+          header.valid |= RGBE_VALID_PROGRAMTYPE;
+          header.programtype = match[1];
+          header.string += line + '\n';
+          while (true) {
+            line = fgets(buffer);
+            if (false === line) break;
+            header.string += line + '\n';
+            if ('#' === line.charAt(0)) {
+              header.comments += line + '\n';
+              continue; // comment line
+            }
+            if (match = line.match(gamma_re)) {
+              header.gamma = parseFloat(match[1]);
+            }
+            if (match = line.match(exposure_re)) {
+              header.exposure = parseFloat(match[1]);
+            }
+            if (match = line.match(format_re)) {
+              header.valid |= RGBE_VALID_FORMAT;
+              header.format = match[1]; //'32-bit_rle_rgbe';
+            }
+            if (match = line.match(dimensions_re)) {
+              header.valid |= RGBE_VALID_DIMENSIONS;
+              header.height = parseInt(match[1], 10);
+              header.width = parseInt(match[2], 10);
+            }
+            if (header.valid & RGBE_VALID_FORMAT && header.valid & RGBE_VALID_DIMENSIONS) break;
+          }
+          if (!(header.valid & RGBE_VALID_FORMAT)) {
+            rgbe_error(rgbe_format_error, 'missing format specifier');
+          }
+          if (!(header.valid & RGBE_VALID_DIMENSIONS)) {
+            rgbe_error(rgbe_format_error, 'missing image size specifier');
+          }
+          return header;
+        },
+        RGBE_ReadPixels_RLE = function RGBE_ReadPixels_RLE(buffer, w, h) {
+          var scanline_width = w;
+          if (
+          // run length encoding is not allowed so read flat
+          scanline_width < 8 || scanline_width > 0x7fff ||
+          // this file is not run length encoded
+          2 !== buffer[0] || 2 !== buffer[1] || buffer[2] & 0x80) {
+            // return the flat buffer
+            return new Uint8Array(buffer);
+          }
+          if (scanline_width !== (buffer[2] << 8 | buffer[3])) {
+            rgbe_error(rgbe_format_error, 'wrong scanline width');
+          }
+          var data_rgba = new Uint8Array(4 * w * h);
+          if (!data_rgba.length) {
+            rgbe_error(rgbe_memory_error, 'unable to allocate buffer space');
+          }
+          var offset = 0,
+            pos = 0;
+          var ptr_end = 4 * scanline_width;
+          var rgbeStart = new Uint8Array(4);
+          var scanline_buffer = new Uint8Array(ptr_end);
+          var num_scanlines = h;
+
+          // read in each successive scanline
+          while (num_scanlines > 0 && pos < buffer.byteLength) {
+            if (pos + 4 > buffer.byteLength) {
+              rgbe_error(rgbe_read_error);
+            }
+            rgbeStart[0] = buffer[pos++];
+            rgbeStart[1] = buffer[pos++];
+            rgbeStart[2] = buffer[pos++];
+            rgbeStart[3] = buffer[pos++];
+            if (2 != rgbeStart[0] || 2 != rgbeStart[1] || (rgbeStart[2] << 8 | rgbeStart[3]) != scanline_width) {
+              rgbe_error(rgbe_format_error, 'bad rgbe scanline format');
+            }
+
+            // read each of the four channels for the scanline into the buffer
+            // first red, then green, then blue, then exponent
+            var ptr = 0,
+              count = void 0;
+            while (ptr < ptr_end && pos < buffer.byteLength) {
+              count = buffer[pos++];
+              var isEncodedRun = count > 128;
+              if (isEncodedRun) count -= 128;
+              if (0 === count || ptr + count > ptr_end) {
+                rgbe_error(rgbe_format_error, 'bad scanline data');
+              }
+              if (isEncodedRun) {
+                // a (encoded) run of the same value
+                var byteValue = buffer[pos++];
+                for (var i = 0; i < count; i++) {
+                  scanline_buffer[ptr++] = byteValue;
+                }
+                //ptr += count;
+              } else {
+                // a literal-run
+                scanline_buffer.set(buffer.subarray(pos, pos + count), ptr);
+                ptr += count;
+                pos += count;
+              }
+            }
+
+            // now convert data from buffer into rgba
+            // first red, then green, then blue, then exponent (alpha)
+            var l = scanline_width; //scanline_buffer.byteLength;
+            for (var _i = 0; _i < l; _i++) {
+              var off = 0;
+              data_rgba[offset] = scanline_buffer[_i + off];
+              off += scanline_width; //1;
+              data_rgba[offset + 1] = scanline_buffer[_i + off];
+              off += scanline_width; //1;
+              data_rgba[offset + 2] = scanline_buffer[_i + off];
+              off += scanline_width; //1;
+              data_rgba[offset + 3] = scanline_buffer[_i + off];
+              offset += 4;
+            }
+            num_scanlines--;
+          }
+          return data_rgba;
+        };
+      var RGBEByteToRGBFloat = function RGBEByteToRGBFloat(sourceArray, sourceOffset, destArray, destOffset) {
+        var e = sourceArray[sourceOffset + 3];
+        var scale = Math.pow(2.0, e - 128.0) / 255.0;
+        destArray[destOffset + 0] = sourceArray[sourceOffset + 0] * scale;
+        destArray[destOffset + 1] = sourceArray[sourceOffset + 1] * scale;
+        destArray[destOffset + 2] = sourceArray[sourceOffset + 2] * scale;
+        destArray[destOffset + 3] = 1;
+      };
+      var RGBEByteToRGBHalf = function RGBEByteToRGBHalf(sourceArray, sourceOffset, destArray, destOffset) {
+        var e = sourceArray[sourceOffset + 3];
+        var scale = Math.pow(2.0, e - 128.0) / 255.0;
+
+        // clamping to 65504, the maximum representable value in float16
+        destArray[destOffset + 0] = _three.DataUtils.toHalfFloat(Math.min(sourceArray[sourceOffset + 0] * scale, 65504));
+        destArray[destOffset + 1] = _three.DataUtils.toHalfFloat(Math.min(sourceArray[sourceOffset + 1] * scale, 65504));
+        destArray[destOffset + 2] = _three.DataUtils.toHalfFloat(Math.min(sourceArray[sourceOffset + 2] * scale, 65504));
+        destArray[destOffset + 3] = _three.DataUtils.toHalfFloat(1);
+      };
+      var byteArray = new Uint8Array(buffer);
+      byteArray.pos = 0;
+      var rgbe_header_info = RGBE_ReadHeader(byteArray);
+      var w = rgbe_header_info.width,
+        h = rgbe_header_info.height,
+        image_rgba_data = RGBE_ReadPixels_RLE(byteArray.subarray(byteArray.pos), w, h);
+      var data, type;
+      var numElements;
+      switch (this.type) {
+        case _three.FloatType:
+          numElements = image_rgba_data.length / 4;
+          var floatArray = new Float32Array(numElements * 4);
+          for (var j = 0; j < numElements; j++) {
+            RGBEByteToRGBFloat(image_rgba_data, j * 4, floatArray, j * 4);
+          }
+          data = floatArray;
+          type = _three.FloatType;
+          break;
+        case _three.HalfFloatType:
+          numElements = image_rgba_data.length / 4;
+          var halfArray = new Uint16Array(numElements * 4);
+          for (var _j = 0; _j < numElements; _j++) {
+            RGBEByteToRGBHalf(image_rgba_data, _j * 4, halfArray, _j * 4);
+          }
+          data = halfArray;
+          type = _three.HalfFloatType;
+          break;
+        default:
+          throw new Error('THREE.RGBELoader: Unsupported type: ' + this.type);
+          break;
+      }
+      return {
+        width: w,
+        height: h,
+        data: data,
+        header: rgbe_header_info.string,
+        gamma: rgbe_header_info.gamma,
+        exposure: rgbe_header_info.exposure,
+        type: type
+      };
+    }
+  }, {
+    key: "setDataType",
+    value: function setDataType(value) {
+      this.type = value;
+      return this;
+    }
+  }, {
+    key: "load",
+    value: function load(url, onLoad, onProgress, onError) {
+      function onLoadCallback(texture, texData) {
+        switch (texture.type) {
+          case _three.FloatType:
+          case _three.HalfFloatType:
+            texture.colorSpace = _three.LinearSRGBColorSpace;
+            texture.minFilter = _three.LinearFilter;
+            texture.magFilter = _three.LinearFilter;
+            texture.generateMipmaps = false;
+            texture.flipY = true;
+            break;
+        }
+        if (onLoad) onLoad(texture, texData);
+      }
+      return _superPropGet(RGBELoader, "load", this, 3)([url, onLoadCallback, onProgress, onError]);
+    }
+  }]);
+}(_three.DataTextureLoader);
+},{"three":"../node_modules/three/build/three.module.js"}],"../src/shader/deep/vertex.glsl":[function(require,module,exports) {
+module.exports = "attribute vec3 position;\nattribute vec2 uv;\n\nuniform mat4 modelMatrix;\nuniform mat4 viewMatrix;\nuniform mat4 projectionMatrix;\n\nvarying vec2 vUv;\n\n// highp -2^16-2^16\n// mediump = -2^10-2^10\n// lowp -2^8-2^8\nprecision highp float;\n#define GLSLIFY 1\nvoid main(){\n  // vec4 modelPosition = modelMatrix * vec4(position, 1.0);\n  gl_Position =  projectionMatrix * viewMatrix * modelMatrix * vec4(position, 1.0);\n  vUv = uv;\n}\n\n";
+},{}],"../src/shader/deep/fragment.glsl":[function(require,module,exports) {
+module.exports = "precision highp float;\n#define GLSLIFY 1\n\nvarying vec2 vUv;\n\nvoid main(){\n    gl_FragColor = vec4(vUv.x, vUv.x, vUv.x, 1);\n}";
 },{}],"../src/main.js":[function(require,module,exports) {
 "use strict";
 
@@ -46406,112 +46752,30 @@ var THREE = _interopRequireWildcard(require("three"));
 var _gsap = _interopRequireDefault(require("gsap"));
 var _OrbitControls = require("three/examples/jsm/controls/OrbitControls");
 var dat = _interopRequireWildcard(require("dat.gui"));
+var _RGBELoader = require("three/examples/jsm/loaders/RGBELoader.js");
+var _vertex = _interopRequireDefault(require("./shader/deep/vertex.glsl"));
+var _fragment = _interopRequireDefault(require("./shader/deep/fragment.glsl"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 function _getRequireWildcardCache(e) { if ("function" != typeof WeakMap) return null; var r = new WeakMap(), t = new WeakMap(); return (_getRequireWildcardCache = function (e) { return e ? t : r; })(e); }
 function _interopRequireWildcard(e, r) { if (!r && e && e.__esModule) return e; if (null === e || "object" != typeof e && "function" != typeof e) return { default: e }; var t = _getRequireWildcardCache(r); if (t && t.has(e)) return t.get(e); var n = { __proto__: null }, a = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var u in e) if ("default" !== u && {}.hasOwnProperty.call(e, u)) { var i = a ? Object.getOwnPropertyDescriptor(e, u) : null; i && (i.get || i.set) ? Object.defineProperty(n, u, i) : n[u] = e[u]; } return n.default = e, t && t.set(e, n), n; }
 // console.log(THREE);
+var clock = new THREE.Clock();
+var gui = new dat.GUI();
 
 // 创建场景
 var scene = new THREE.Scene();
 // 创建相机
-var camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+var camera = new THREE.PerspectiveCamera(90, window.innerWidth / window.innerHeight, 0.1, 1000);
 // 相机位置
-camera.position.set(0, 0, 10);
+camera.position.set(0, 0, 2);
 scene.add(camera);
-var event = {
-  onLoad: function onLoad(e) {
-    console.log('加载完成', e);
-  },
-  onProgress: function onProgress(url, num, total) {
-    console.log('加载进度', url, num, total);
-  },
-  onError: function onError(e) {
-    console.log('加载报错', e);
-  }
-};
-var loadManager = new THREE.LoadingManager(event.onLoad, event.onProgress, event.onError);
-
-// 纹理
-var textureLoader = new THREE.TextureLoader(loadManager);
-var texture = textureLoader.load('./texture/door/color.jpg');
-var alphaTexture = textureLoader.load('./texture/door/alpha.jpg');
-var aoTexture = textureLoader.load('./texture/door/ambientOcclusion.jpg');
-// 置换贴图， 有层次
-var heightTexture = textureLoader.load('./texture/door/height.jpg');
-// texture.offset.set(0.5, 0.5)
-// texture.center.set(0.5, 0.5)
-// texture.rotation = Math.PI / 4
-// texture.repeat.set(2, 3)
-// texture.wrapS = THREE.MirroredRepeatWrapping
-// texture.wrapT = THREE.RepeatWrapping
-
-// const texture = textureLoader.load('./texture/minecraft.png')
-// texture.minFilter = THREE.NearestFilter
-// texture.magFilter = THREE.NearestFilter
-// 添加物体
-var cubeGeometry = new THREE.BoxGeometry(1, 1, 1, 100, 100, 100);
-// const cubeMeterial = new THREE.MeshBasicMaterial({
-var cubeMeterial = new THREE.MeshStandardMaterial({
-  color: '#fff',
-  map: texture,
-  alphaMap: alphaTexture,
-  aoMap: aoTexture,
-  aoMapIntensity: 1,
-  displacementMap: heightTexture,
-  displacementScale: 0.1,
-  transparent: true,
-  side: THREE.DoubleSide,
-  roughness: 1
-});
-var cube = new THREE.Mesh(cubeGeometry, cubeMeterial);
-// cube.position.x = 0
-scene.add(cube);
-var planeGeometry = new THREE.PlaneGeometry(1, 1, 200, 200);
-planeGeometry.setAttribute('uv2', new THREE.BufferAttribute(planeGeometry.attributes.uv.array, 4));
-var plane = new THREE.Mesh(planeGeometry, cubeMeterial);
-plane.position.set(1, 0, 0);
-scene.add(plane);
-console.log(planeGeometry);
-
-// 灯光
-// const light = new THREE.AmbientLight(0xffffff) // 柔和的白光
-// scene.add(light)
-
-var directionalLight = new THREE.DirectionalLight('#fff', 3.0);
-directionalLight.position.set(0, 0, 10);
-scene.add(directionalLight);
-
-// BufferGeometry
-// const geometry = new THREE.BufferGeometry()
-// const vertices = new Float32Array([
-//   -1.0, -1.0, 1.0,
-//   1.0, -1.0, 1.0,
-//   1.0, 1.0, 1.0,
-//   1.0, 1.0,1.0,
-//   -1.0, 1.0, 1.0,
-//   -1.0, -1.0, 1.0,
-// ])
-// geometry.setAttribute('position', new THREE.BufferAttribute(vertices, 3))
-// const material = new THREE.MeshBasicMaterial({ color: '#eee' })
-// const mesh = new THREE.Mesh(geometry, material)
-// scene.add(mesh)
-
-// for (let i = 0; i < 30; i++) {
-//   const geometry = new THREE.BufferGeometry()
-//   const vertices = new Float32Array(9)
-//   for (let j = 0; j < 9; j++) {
-//     vertices[j] = Math.random() * 5
-//   }
-//   geometry.setAttribute('position', new THREE.BufferAttribute(vertices, 3))
-//   const color = new THREE.Color(Math.random(), Math.random(), Math.random())
-//   const material = new THREE.MeshBasicMaterial({ color, transparent: true, opacity: 0.5 })
-//   const mesh = new THREE.Mesh(geometry, material)
-//   scene.add(mesh)
-// }
 
 // 初始化渲染器
-var renderer = new THREE.WebGLRenderer();
+var renderer = new THREE.WebGLRenderer({
+  alpha: true
+});
 renderer.setSize(window.innerWidth, window.innerHeight);
+renderer.shadowMap.enabled = true;
 // webgl渲染的canvas添加到body
 document.body.appendChild(renderer.domElement);
 // 渲染器渲染场景
@@ -46522,52 +46786,61 @@ var controls = new _OrbitControls.OrbitControls(camera, renderer.domElement);
 controls.enableDamping = true;
 
 // 添加坐标轴
-var axesHelper = new THREE.AxesHelper(5);
-axesHelper.setColors('red', 'pink', 'yellow');
+var axesHelper = new THREE.AxesHelper(10);
+axesHelper.setColors('red', 'green', 'blue');
 scene.add(axesHelper);
-var animate1 = _gsap.default.to(cube.position, {
-  x: 5,
-  y: 5,
-  z: 5,
-  duration: 5,
-  repeat: -1,
-  yoyo: true,
-  ease: 'power1.inOut',
-  onStart: function onStart() {
-    console.log('动画开始');
-  }
-});
-window.addEventListener('dblclick', function () {
-  // 动画停止与恢复
-  if (animate1.isActive()) {
-    animate1.pause();
-  } else {
-    animate1.resume();
-  }
-  // 全屏
-  // const fullScreenElement = document.fullscreenElement
-  // if (fullScreenElement) {
-  //   document.exitFullscreen()
-  // } else {
-  //   renderer.domElement.requestFullscreen()
-  // }
-});
+var textureLoader = new THREE.TextureLoader();
+var texture = textureLoader.load('./texture/ca.jpeg');
+var params = {
+  uFrequency: 10,
+  uScale: 0.1
+};
 
-// const clock = new THREE.Clock()
+// const material = new THREE.MeshBasicMaterial({ color: '#00ff00' })
+// const shaderMaterial = new THREE.ShaderMaterial({
+//   vertexShader: basicVertexShader,
+//   fragmentShader:  basicFragmentShader
+// })
 
+var rawShaderMaterial = new THREE.RawShaderMaterial({
+  vertexShader: _vertex.default,
+  fragmentShader: _fragment.default,
+  // wireframe: true,
+  uniforms: {
+    uColor: {
+      value: new THREE.Color('purple')
+    },
+    // 波浪的频率
+    uFrequency: {
+      value: params.uFrequency
+    },
+    // 波浪的幅度
+    uScale: {
+      value: params.uScale
+    },
+    // 动画时间
+    uTime: {
+      value: 0
+    },
+    uTexture: {
+      value: texture
+    }
+  },
+  side: THREE.DoubleSide,
+  transparent: true
+});
+gui.add(params, 'uFrequency').min(0).max(50).step(0.1).onChange(function (value) {
+  rawShaderMaterial.uniforms.uFrequency.value = value;
+});
+gui.add(params, 'uScale').min(0).max(1).step(0.01).onChange(function (value) {
+  rawShaderMaterial.uniforms.uScale.value = value;
+});
+var floor = new THREE.Mesh(new THREE.PlaneGeometry(1, 1, 1, 1), rawShaderMaterial);
+scene.add(floor);
+console.log(floor);
 function render() {
-  // cube.rotation.x += 0.01
-  // cube.rotation.y += 0.01
-
-  // cube.scale.x += 0.01
-  // cube.scale.y += 0.01
-  // 时钟运行总时长
-  // let time = clock.getElapsedTime()
-  // console.log('time: ', time)
-  // // 两次获取时间的间隔时间
-  // let deltaTime = clock.getDelta()
-  // console.log('deltaTime: ', deltaTime)
-  controls.update();
+  var elapsedTime = clock.getElapsedTime();
+  // rawShaderMaterial.uniforms.uTime.value = elapsedTime
   renderer.render(scene, camera);
   requestAnimationFrame(render);
 }
@@ -46579,40 +46852,7 @@ window.addEventListener('resize', function () {
   renderer.setSize(window.innerWidth, window.innerHeight);
   renderer.setPixelRatio(window.devicePixelRatio);
 });
-
-// 图形界面更改变量，移动选项需要物体静止
-var gui = new dat.GUI();
-gui.add(cube.position, 'x').min(0).max(5).step(0.01).name('xAxis').onChange(function (val) {
-  return console.log(val);
-}).onFinishChange(function (val) {
-  return console.log('完全停下来');
-});
-// 修改颜色
-var params = {
-  color: '#ff0000',
-  fn: function fn() {
-    _gsap.default.to(cube.position, {
-      x: 5,
-      y: 5,
-      z: 5,
-      duration: 5,
-      repeat: -1,
-      yoyo: true,
-      ease: 'power1.inOut'
-    });
-  }
-};
-gui.addColor(params, 'color').onChange(function (val) {
-  console.log(val);
-  cube.material.color.set(val);
-});
-gui.add(cube, 'visible').name('display');
-// gui.add(params, 'fn').name('start')
-
-var folder = gui.addFolder('设置立方体');
-folder.add(cube.material, 'wireframe');
-var folder2 = gui.addFolder('文件夹');
-},{"three":"../node_modules/three/build/three.module.js","gsap":"../node_modules/gsap/index.js","three/examples/jsm/controls/OrbitControls":"../node_modules/three/examples/jsm/controls/OrbitControls.js","dat.gui":"../node_modules/dat.gui/build/dat.gui.module.js"}],"../node_modules/.pnpm/parcel-bundler@1.12.5/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"three":"../node_modules/three/build/three.module.js","gsap":"../node_modules/gsap/index.js","three/examples/jsm/controls/OrbitControls":"../node_modules/three/examples/jsm/controls/OrbitControls.js","dat.gui":"../node_modules/dat.gui/build/dat.gui.module.js","three/examples/jsm/loaders/RGBELoader.js":"../node_modules/three/examples/jsm/loaders/RGBELoader.js","./shader/deep/vertex.glsl":"../src/shader/deep/vertex.glsl","./shader/deep/fragment.glsl":"../src/shader/deep/fragment.glsl"}],"../node_modules/.pnpm/parcel-bundler@1.12.5/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -46637,7 +46877,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "5217" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "57902" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];
