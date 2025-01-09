@@ -46744,7 +46744,7 @@ var RGBELoader = exports.RGBELoader = /*#__PURE__*/function (_DataTextureLoader)
 },{"three":"../node_modules/three/build/three.module.js"}],"../src/shader/deep/vertex.glsl":[function(require,module,exports) {
 module.exports = "attribute vec3 position;\nattribute vec2 uv;\n\nuniform mat4 modelMatrix;\nuniform mat4 viewMatrix;\nuniform mat4 projectionMatrix;\n\nvarying vec2 vUv;\n\n// highp -2^16-2^16\n// mediump = -2^10-2^10\n// lowp -2^8-2^8\nprecision highp float;\n#define GLSLIFY 1\nvoid main(){\n  // vec4 modelPosition = modelMatrix * vec4(position, 1.0);\n  gl_Position =  projectionMatrix * viewMatrix * modelMatrix * vec4(position, 1.0);\n  vUv = uv;\n}\n\n";
 },{}],"../src/shader/deep/fragment.glsl":[function(require,module,exports) {
-module.exports = "precision highp float;\n#define GLSLIFY 1\n\nvarying vec2 vUv;\n\nvoid main(){\n    gl_FragColor = vec4(vUv.x, vUv.x, vUv.x, 1);\n}";
+module.exports = "precision highp float;\n#define GLSLIFY 1\n\nvarying vec2 vUv;\n\nvoid main(){\n    // float x = mod(vUv.x * 10.0, 1.0);\n    // gl_FragColor = vec4(x, x, x, 1);\n    // gl_FragColor = vec4(1.0-x, 1.0-x, 1.0-x, 1);\n    // float f = step(0.2,  mod(vUv.x * 10.0, 1.0));\n    // f *= step(0.2,  mod(vUv.y * 10.0, 1.0));\n    // gl_FragColor = vec4(f, f, f, 1);\n\n    // float barX = step(0.2,  mod(vUv.x * 10.0, 1.0)) * step(0.2,  mod(vUv.y * 10.0, 1.0));\n    // float barY = step(0.2,  mod(vUv.y * 10.0, 1.0)) * step(0.2,  mod(vUv.x * 10.0, 1.0));\n    // float f = barX + barY;\n    // gl_FragColor = vec4(vUv, 1, f);\n\n    float f = abs(vUv.x - 0.5) * 2.0;\n    gl_FragColor = vec4(f, f, f, 1);\n}";
 },{}],"../src/main.js":[function(require,module,exports) {
 "use strict";
 
