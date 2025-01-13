@@ -94,13 +94,13 @@ gui
     rawShaderMaterial.uniforms.uScale.value = value
   })
 
-const floor = new THREE.Mesh(new THREE.PlaneGeometry(1, 1, 1, 1), rawShaderMaterial)
+const floor = new THREE.Mesh(new THREE.PlaneGeometry(1, 1, 64, 64), rawShaderMaterial)
 scene.add(floor)
 console.log(floor)
 
 function render() {
   const elapsedTime = clock.getElapsedTime()
-  // rawShaderMaterial.uniforms.uTime.value = elapsedTime
+  rawShaderMaterial.uniforms.uTime.value = elapsedTime
   renderer.render(scene, camera)
   requestAnimationFrame(render)
 }
